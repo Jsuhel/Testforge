@@ -128,7 +128,7 @@ export default function FeedbackForm() {
     <div className="relative max-w-2xl">
       {/* Solid, no-frills contact card */}
       <motion.div
-        className="relative rounded-xl border border-[#eef0ee1f] bg-[#141a21] p-5 sm:p-7"
+        className="relative rounded-xl border border-[#eef0ee1f] bg-[#141a21] p-5 sm:p-6"
         initial={reduce ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
@@ -276,7 +276,7 @@ export default function FeedbackForm() {
                         id="fb-remarks"
                         name="remarks"
                         placeholder=" "
-                        rows={4}
+                        rows={3}
                         maxLength={1000}
                         onChange={() => clearError("remarks")}
                       />

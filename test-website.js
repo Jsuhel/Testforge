@@ -106,17 +106,21 @@ const VIEWPORTS = [
     });
     ok(navOk.noBlur, `nav has no backdrop-blur (bg ${navOk.bg})`);
 
-    // footer structure
+    // footer structure (compact single-row, light)
     const foot = await page.evaluate(() => {
-      const cols = [...document.querySelectorAll("footer h3")].map((h) => h.textContent.trim());
       const links = document.querySelectorAll("footer ul a").length;
+      const github = !!document.querySelector('footer a[href*="github.com"]');
       const form = !!document.querySelector("#start form");
       const fields = document.querySelectorAll("#start form input, #start form textarea").length;
-      return { cols, links, form, fields };
+      const ctaH = Math.round(document.querySelector("#start").getBoundingClientRect().height);
+      const footH = Math.round(document.querySelector("footer").getBoundingClientRect().height);
+      const footerBg = getComputedStyle(document.querySelector("footer")).backgroundColor;
+      return { links, github, form, fields, ctaH, footH, footerBg };
     });
-    ok(foot.cols.includes("Product") && foot.cols.includes("Company"), `footer columns: ${foot.cols.join(", ")}`);
-    ok(foot.links >= 5, `footer has ${foot.links} links`);
+    ok(foot.links >= 5 && foot.github, `footer has ${foot.links} links incl. GitHub`);
     ok(foot.form && foot.fields >= 4, `feedback form present with ${foot.fields} fields`);
+    ok(foot.ctaH + foot.footH < 1100, `end-of-page compact: CTA ${foot.ctaH}px + footer ${foot.footH}px`);
+    report.push(`      end-of-page: dark CTA ${foot.ctaH}px, light footer ${foot.footH}px (bg ${foot.footerBg})`);
 
     // theme toggle works
     await page.click('button[aria-label*="dark theme"]');
