@@ -9,6 +9,7 @@ import {
   type Variants,
 } from "framer-motion";
 
+
 type Status = "idle" | "sending" | "success";
 type FieldName = "name" | "email" | "mobile" | "remarks";
 type Errors = Partial<Record<FieldName, string>>;
@@ -33,7 +34,6 @@ export default function FeedbackForm() {
   const [serverError, setServerError] = useState("");
   const [firstName, setFirstName] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
   const shake = useAnimationControls();
   const reduce = useReducedMotion();
 
@@ -62,15 +62,6 @@ export default function FeedbackForm() {
       x: [0, -9, 9, -6, 6, 0],
       transition: { duration: 0.4, ease: "easeInOut" },
     });
-  }
-
-  /* Cursor spotlight — CSS vars on the card, no re-render per pixel */
-  function trackCursor(event: React.MouseEvent<HTMLDivElement>) {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-    el.style.setProperty("--my", `${event.clientY - rect.top}px`);
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -135,42 +126,19 @@ export default function FeedbackForm() {
 
   return (
     <div className="relative max-w-2xl">
-      {/* Ambient pulsing glow behind the card */}
+      {/* Solid, no-frills contact card */}
       <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute -inset-4 rounded-2xl"
-        style={{
-          background:
-            "radial-gradient(420px circle at 30% 0%, rgba(228, 87, 46, 0.16), transparent 65%)",
-        }}
-        animate={reduce ? undefined : { opacity: [0.45, 0.85, 0.45] }}
-        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Card with border beam + cursor spotlight */}
-      <motion.div
-        ref={cardRef}
-        onMouseMove={trackCursor}
-        className="beam-card relative rounded-xl border border-[#eef0ee26] bg-[#ffffff0a] p-5 backdrop-blur-sm sm:p-7"
-        initial={reduce ? false : { opacity: 0, y: 24, scale: 0.98 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        className="relative rounded-xl border border-[#eef0ee1f] bg-[#141a21] p-5 sm:p-7"
+        initial={reduce ? false : { opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ type: "spring", stiffness: 160, damping: 20 }}
       >
-        <span
-          aria-hidden="true"
-          className="dots-overlay pointer-events-none absolute inset-0 rounded-xl"
-        />
-        <span
-          aria-hidden="true"
-          className="spotlight-overlay pointer-events-none absolute inset-0 rounded-xl"
-        />
-
         <div className="relative">
-          <h3 className="font-display text-xl font-bold">Share your feedback</h3>
+          <h3 className="font-display text-xl font-bold">Talk to the team</h3>
           <p className="mt-1 text-sm leading-relaxed text-[#9aa3ad]">
-            Spotted something off, or want a quick walkthrough? Leave a note — it
-            goes straight to our team.
+            Tell us where test authoring hurts — we will show you how
+            TestForge.Ai handles it, on your own document.
           </p>
 
           <p aria-live="polite" className="sr-only">

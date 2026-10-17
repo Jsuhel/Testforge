@@ -368,76 +368,7 @@ body {
   }
 }
 
-/* ---------- Feedback card: border beam + cursor spotlight + dots ---------- */
-@property --beam-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-/* Orange beam tracing the card border (21st.dev-style, site palette) */
-.beam-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(
-    from var(--beam-angle, 0deg),
-    transparent 0deg,
-    transparent 296deg,
-    rgba(228, 87, 46, 0.15) 322deg,
-    #ff7a4d 342deg,
-    #ffd9c9 350deg,
-    #ff7a4d 356deg,
-    transparent 360deg
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  animation: beam-spin 7s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes beam-spin {
-  to {
-    --beam-angle: 360deg;
-  }
-}
-
-/* Faint dot grid, fading out toward the bottom of the card */
-.dots-overlay {
-  background-image: radial-gradient(
-    rgba(238, 240, 238, 0.09) 1px,
-    transparent 1.5px
-  );
-  background-size: 18px 18px;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
-  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
-}
-
-/* Warm spotlight that follows the cursor inside the card */
-.spotlight-overlay {
-  background: radial-gradient(
-    360px circle at var(--mx, 50%) var(--my, 0px),
-    rgba(228, 87, 46, 0.12),
-    transparent 65%
-  );
-  opacity: 0;
-  transition: opacity 300ms ease;
-}
-
-.beam-card:hover .spotlight-overlay,
-.beam-card:focus-within .spotlight-overlay {
-  opacity: 1;
-}
-
-/* Sheen sweep across accent buttons on hover */
+/* ---------- Sheen sweep across accent buttons on hover ---------- */
 .btn-shine {
   position: relative;
   overflow: hidden;
@@ -466,11 +397,6 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .beam-card::before {
-    animation: none;
-  }
-
-  .spotlight-overlay,
   .btn-shine::after {
     transition: none;
   }

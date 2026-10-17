@@ -1,54 +1,83 @@
 import Image from "next/image";
 
+const PRODUCT_LINKS = [
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#trust", label: "Trust & control" },
+  { href: "#faq", label: "FAQ" },
+];
+
+const COMPANY_LINKS = [
+  { href: "#start", label: "Book a walkthrough" },
+  { href: "#start", label: "Give feedback" },
+  { href: "mailto:jsuhel122@gmail.com", label: "Email the team" },
+];
+
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: { href: string; label: string }[];
+}) {
+  return (
+    <div>
+      <h3 className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#9aa3ad]">
+        {title}
+      </h3>
+      <ul className="mt-4 grid gap-2.5">
+        {links.map((l) => (
+          <li key={l.label}>
+            <a
+              href={l.href}
+              className="text-sm text-[#c8cdd4] transition-colors hover:text-paper"
+            >
+              {l.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-night text-paper">
-      <div className="mx-auto flex max-w-page flex-col gap-6 px-5 py-10 md:flex-row md:items-center md:justify-between md:px-8">
-        <div className="flex min-w-0 items-center gap-2.5">
-          <Image
-            src="/logo.png"
-            alt=""
-            aria-hidden="true"
-            width={36}
-            height={36}
-            className="h-8 w-8 shrink-0 sm:h-9 sm:w-9"
-          />
-          <span className="whitespace-nowrap font-display text-base font-bold tracking-tight text-paper sm:text-lg">
-            TestForge<span className="text-accent">.Ai</span>
-          </span>
-          <span className="ml-3 hidden font-mono text-[11px] text-[#9aa3ad] lg:inline">
-            AI does the heavy work. People stay in control.
-          </span>
+      <div className="mx-auto max-w-page px-5 py-12 md:px-8 md:py-16">
+        <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
+          {/* Brand */}
+          <div>
+            <div className="flex min-w-0 items-center gap-2.5">
+              <Image
+                src="/logo.png"
+                alt=""
+                aria-hidden="true"
+                width={36}
+                height={36}
+                className="h-9 w-9 shrink-0"
+              />
+              <span className="whitespace-nowrap font-display text-lg font-bold tracking-tight text-paper">
+                TestForge<span className="text-accent">.Ai</span>
+              </span>
+            </div>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#9aa3ad]">
+              AI does the heavy work. People stay in control. Test cases from
+              your FSD, approved by you, automated in Playwright.
+            </p>
+          </div>
+
+          <FooterColumn title="Product" links={PRODUCT_LINKS} />
+          <FooterColumn title="Company" links={COMPANY_LINKS} />
         </div>
 
-        <nav aria-label="Footer">
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[#9aa3ad]">
-            <li>
-              <a href="#how-it-works" className="transition-colors hover:text-paper">
-                How it works
-              </a>
-            </li>
-            <li>
-              <a href="#trust" className="transition-colors hover:text-paper">
-                Trust
-              </a>
-            </li>
-            <li>
-              <a href="#faq" className="transition-colors hover:text-paper">
-                FAQ
-              </a>
-            </li>
-            <li>
-              <a href="#start" className="text-paper underline decoration-accent decoration-2 underline-offset-4">
-                Try TestForge
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <p className="font-mono text-[11px] text-[#9aa3ad]">
-          © 2026 TestForge
-        </p>
+        <div className="mt-12 flex flex-col gap-3 border-t border-[#eef0ee14] pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-[11px] text-[#9aa3ad]">
+            © 2026 TestForge.Ai — built for banking QA teams
+          </p>
+          <p className="font-mono text-[11px] text-[#9aa3ad]">
+            Playwright · TypeScript · runs on your infrastructure
+          </p>
+        </div>
       </div>
     </footer>
   );

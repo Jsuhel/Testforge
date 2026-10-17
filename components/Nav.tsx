@@ -71,7 +71,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-paper/90 backdrop-blur-sm">
+    <header className="sticky top-0 z-50 border-b border-line bg-paper">
       <nav
         aria-label="Main"
         className="mx-auto flex h-16 max-w-page items-center justify-between px-5 md:px-8"

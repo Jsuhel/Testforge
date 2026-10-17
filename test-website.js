@@ -97,6 +97,27 @@ const VIEWPORTS = [
     });
     ok(h1.w > 100 && h1.h > 30, `h1 renders (${h1.w}x${h1.h}) "${h1.text}"`);
 
+    // solid nav (no blur)
+    const navOk = await page.evaluate(() => {
+      const h = document.querySelector("header");
+      const cls = h.className;
+      const bg = getComputedStyle(h).backgroundColor;
+      return { noBlur: !cls.includes("backdrop-blur"), bg };
+    });
+    ok(navOk.noBlur, `nav has no backdrop-blur (bg ${navOk.bg})`);
+
+    // footer structure
+    const foot = await page.evaluate(() => {
+      const cols = [...document.querySelectorAll("footer h3")].map((h) => h.textContent.trim());
+      const links = document.querySelectorAll("footer ul a").length;
+      const form = !!document.querySelector("#start form");
+      const fields = document.querySelectorAll("#start form input, #start form textarea").length;
+      return { cols, links, form, fields };
+    });
+    ok(foot.cols.includes("Product") && foot.cols.includes("Company"), `footer columns: ${foot.cols.join(", ")}`);
+    ok(foot.links >= 5, `footer has ${foot.links} links`);
+    ok(foot.form && foot.fields >= 4, `feedback form present with ${foot.fields} fields`);
+
     // theme toggle works
     await page.click('button[aria-label*="dark theme"]');
     await page.waitForTimeout(300);
