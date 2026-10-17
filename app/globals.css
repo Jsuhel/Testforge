@@ -1,0 +1,485 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Light (paper) theme */
+  --paper: #f4f1ea;
+  --ink: #14181f;
+  --accent: #e4572e;
+  --night: #101418;
+  --line: #14181f26; /* ink at 15% */
+  --line-strong: #14181f40;
+  --muted: #545b66;
+  --surface: #fbfaf6;
+  --surface-2: #eeebe2;
+  --pass: #1f7a4d;
+  --fail: #c23a2b;
+  --shadow: 0 1px 0 #14181f1a, 0 12px 32px -18px #14181f40;
+}
+
+[data-theme="dark"] {
+  --paper: #101418;
+  --ink: #eef0ee;
+  --accent: #ff7a4d;
+  --night: #0b0e11;
+  --line: #eef0ee1f;
+  --line-strong: #eef0ee3d;
+  --muted: #9aa3ad;
+  --surface: #171c22;
+  --surface-2: #1e242c;
+  --pass: #4cbf86;
+  --fail: #ef7b6b;
+  --shadow: 0 1px 0 #00000059, 0 12px 32px -18px #000000cc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Visible focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Thin editorial rules */
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+/* Mono kicker label used above section headings */
+.kicker {
+  font-family: var(--font-jetbrains), Consolas, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Marquee ---------- */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation-duration: 46s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.marquee-left {
+  animation-name: marquee-left;
+}
+
+.marquee-right {
+  animation-name: marquee-right;
+}
+
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ---------- Typing caret ---------- */
+@keyframes caret-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.typing-caret {
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+/* Typewriter content slides left (transform only — zero reflow)
+   to keep the caret visible once the text overflows its fixed box. */
+.typing-scroll {
+  transition: transform 140ms ease-out;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typing-caret {
+    animation: none;
+  }
+
+  .typing-scroll {
+    transition: none;
+  }
+}
+
+/* ---------- App window chrome (shared by mocks) ---------- */
+.mock {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.mock-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--line);
+  padding: 0.5rem 0.75rem;
+}
+
+.mock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: var(--line-strong);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-jetbrains), Consolas, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@layer components {
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  border-radius: 8px;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1.25rem;
+}
+
+.btn-primary:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+[data-theme="dark"] .btn-primary {
+  background: var(--ink);
+  color: var(--night);
+}
+
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--accent);
+  color: #101418;
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+}
+
+.btn-accent:hover {
+  background: #c74622;
+}
+
+[data-theme="dark"] .btn-accent:hover {
+  background: #ff926e;
+  color: #101418;
+}
+
+.btn-ghost {
+  border: 1px solid var(--line-strong);
+  color: inherit;
+  padding: 0.75rem 1.25rem;
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink);
+}
+
+[data-theme="dark"] .btn-ghost:hover {
+  border-color: var(--ink);
+  background: var(--surface-2);
+}
+
+}
+
+/* Force ink-on-paper text inside dark product mocks even in dark mode */
+.mock-fixed {
+  background: #f4f1ea;
+  color: #14181f;
+}
+
+/* ---------- Feedback form (sits on the always-dark night section) ---------- */
+.field {
+  position: relative;
+}
+
+.field > input,
+.field > textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #eef0ee26;
+  background: #ffffff0d;
+  padding: 1.45rem 0.9rem 0.55rem;
+  color: #f4f1ea;
+  font-size: 0.9375rem;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.field > input:hover,
+.field > textarea:hover {
+  border-color: #eef0ee40;
+}
+
+.field > input:focus,
+.field > textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #ffffff12;
+  /* Fallback ring, then a theme-aware one where color-mix is supported */
+  box-shadow: 0 0 0 3px rgba(228, 87, 46, 0.22);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.field > input[aria-invalid="true"],
+.field > textarea[aria-invalid="true"] {
+  border-color: var(--fail);
+}
+
+/* Autofill keeps its dark chrome instead of flashing yellow */
+.field > input:-webkit-autofill {
+  -webkit-text-fill-color: #f4f1ea;
+  -webkit-box-shadow: 0 0 0 1000px #1c232b inset;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Floating labels: sit inside until focus or content, then dock on top */
+.field > label {
+  position: absolute;
+  left: 0.9rem;
+  top: 0.9rem;
+  font-size: 0.875rem;
+  color: #eef0ee66;
+  pointer-events: none;
+  transition:
+    top 180ms ease,
+    font-size 180ms ease,
+    letter-spacing 180ms ease,
+    color 180ms ease;
+}
+
+.field > input:focus + label,
+.field > textarea:focus + label,
+.field > input:not(:placeholder-shown) + label,
+.field > textarea:not(:placeholder-shown) + label {
+  top: 0.35rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.field > input:focus + label,
+.field > textarea:focus + label {
+  color: var(--accent);
+}
+
+.field > input:not(:focus):not(:placeholder-shown) + label,
+.field > textarea:not(:focus):not(:placeholder-shown) + label {
+  color: #eef0ee80;
+}
+
+.field > textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field > input,
+  .field > textarea,
+  .field > label {
+    transition: none;
+  }
+}
+
+/* ---------- Feedback card: border beam + cursor spotlight + dots ---------- */
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Orange beam tracing the card border (21st.dev-style, site palette) */
+.beam-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(
+    from var(--beam-angle, 0deg),
+    transparent 0deg,
+    transparent 296deg,
+    rgba(228, 87, 46, 0.15) 322deg,
+    #ff7a4d 342deg,
+    #ffd9c9 350deg,
+    #ff7a4d 356deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: beam-spin 7s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes beam-spin {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+/* Faint dot grid, fading out toward the bottom of the card */
+.dots-overlay {
+  background-image: radial-gradient(
+    rgba(238, 240, 238, 0.09) 1px,
+    transparent 1.5px
+  );
+  background-size: 18px 18px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+  mask-image: linear-gradient(to bottom, #000 0%, transparent 85%);
+}
+
+/* Warm spotlight that follows the cursor inside the card */
+.spotlight-overlay {
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 0px),
+    rgba(228, 87, 46, 0.12),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.beam-card:hover .spotlight-overlay,
+.beam-card:focus-within .spotlight-overlay {
+  opacity: 1;
+}
+
+/* Sheen sweep across accent buttons on hover */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.38) 50%,
+    transparent 58%
+  );
+  transform: translateX(-130%);
+  transition: transform 700ms ease;
+  pointer-events: none;
+}
+
+.btn-shine:hover::after,
+.btn-shine:focus-visible::after {
+  transform: translateX(130%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .beam-card::before {
+    animation: none;
+  }
+
+  .spotlight-overlay,
+  .btn-shine::after {
+    transition: none;
+  }
+}
+
+.mock-fixed .mock-titlebar {
+  border-color: #14181f26;
+}
+
+.mock-fixed .mock-dot {
+  background: #14181f40;
+}
