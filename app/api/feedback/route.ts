@@ -123,21 +123,36 @@ export async function POST(request: Request) {
   // webhook, Slack incoming webhook, Zapier catch hook, etc. Failures here
   // never block the submission; the sheet below remains the source of truth.
   const webhook = process.env.FEEDBACK_WEBHOOK_URL;
-  if (webhook) {
+  if (!webhook) {
+    console.warn(
+      "[feedback] FEEDBACK_WEBHOOK_URL is not set — this submission will NOT reach the Google Sheet. " +
+        "Add it in Vercel → Settings → Environment Variables, then Redeploy.",
+    );
+  } else {
     try {
       const payload = { at: row[0], name, email, mobile, remarks };
+      let res: Response;
       if (/^https:\/\/script\.google\.com\//.test(webhook)) {
         // Apps Script /exec always 302-redirects and the POST body does not
         // survive the redirect — send the row as query params on a GET,
         // which the script's doGet(e) reads from e.parameter.
         const qs = new URLSearchParams(payload).toString();
-        await fetch(`${webhook}?${qs}`, { method: "GET", redirect: "follow" });
+        res = await fetch(`${webhook}?${qs}`, { method: "GET", redirect: "follow" });
       } else {
-        await fetch(webhook, {
+        res = await fetch(webhook, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         });
+      }
+      // Apps Script signals script errors with an HTML page (still HTTP 200).
+      const body = await res.text();
+      if (res.ok && !body.trimStart().startsWith("<")) {
+        console.log(`[feedback] forwarded to sheet webhook: ok (${body.slice(0, 60)})`);
+      } else {
+        console.error(
+          `[feedback] sheet webhook rejected the row (status ${res.status}): ${body.slice(0, 160)}`,
+        );
       }
     } catch (error) {
       console.error("[feedback] webhook forward failed:", error);
