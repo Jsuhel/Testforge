@@ -13,6 +13,15 @@ const HEADERS = ["Timestamp", "Name", "Email", "Mobile", "Remarks"];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\-\s\d]{7,20}$/;
 
+/**
+ * Durable sink for every submission — a Google Apps Script webhook that
+ * appends the row to the TestForge Feedback sheet. FEEDBACK_WEBHOOK_URL
+ * (Vercel → Settings → Environment Variables) overrides this default;
+ * set it if the script URL is ever rotated.
+ */
+const DEFAULT_FEEDBACK_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycby9oUVlpBzVH2pxZRF7bCJR4HDtPC5uu7ZpfamLhi5ESsytrZQLSHJByKiAZyLTUNlJ1A/exec";
+
 function stamp(): string {
   return new Date().toISOString().replace("T", " ").slice(0, 19) + " UTC";
 }
@@ -119,14 +128,13 @@ export async function POST(request: Request) {
 
   const row = [stamp(), name, email, mobile, remarks];
 
-  // Optional durable sink — set FEEDBACK_WEBHOOK_URL to a Google Apps Script
-  // webhook, Slack incoming webhook, Zapier catch hook, etc. Failures here
-  // never block the submission; the sheet below remains the source of truth.
-  const webhook = process.env.FEEDBACK_WEBHOOK_URL;
+  // Durable sink — Apps Script webhook by default; FEEDBACK_WEBHOOK_URL can
+  // override it. Failures here never block the submission; the local sheet
+  // below remains the backup.
+  const webhook = process.env.FEEDBACK_WEBHOOK_URL || DEFAULT_FEEDBACK_WEBHOOK_URL;
   if (!webhook) {
     console.warn(
-      "[feedback] FEEDBACK_WEBHOOK_URL is not set — this submission will NOT reach the Google Sheet. " +
-        "Add it in Vercel → Settings → Environment Variables, then Redeploy.",
+      "[feedback] no webhook configured — this submission will NOT reach the Google Sheet.",
     );
   } else {
     try {
