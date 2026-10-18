@@ -125,11 +125,20 @@ export async function POST(request: Request) {
   const webhook = process.env.FEEDBACK_WEBHOOK_URL;
   if (webhook) {
     try {
-      await fetch(webhook, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ at: row[0], name, email, mobile, remarks }),
-      });
+      const payload = { at: row[0], name, email, mobile, remarks };
+      if (/^https:\/\/script\.google\.com\//.test(webhook)) {
+        // Apps Script /exec always 302-redirects and the POST body does not
+        // survive the redirect — send the row as query params on a GET,
+        // which the script's doGet(e) reads from e.parameter.
+        const qs = new URLSearchParams(payload).toString();
+        await fetch(`${webhook}?${qs}`, { method: "GET", redirect: "follow" });
+      } else {
+        await fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+      }
     } catch (error) {
       console.error("[feedback] webhook forward failed:", error);
     }
