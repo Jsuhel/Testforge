@@ -135,7 +135,7 @@ export default function FeedbackForm() {
         transition={{ type: "spring", stiffness: 160, damping: 20 }}
       >
         <div className="relative">
-          <h3 className="font-display text-xl font-bold">Talk to the team</h3>
+          <h3 className="font-display text-xl font-medium">Talk to the team</h3>
           <p className="mt-1 text-sm leading-relaxed text-[#9aa3ad]">
             Tell us where test authoring hurts — we will show you how
             TestForge.Ai handles it, on your own document.
@@ -184,7 +184,7 @@ export default function FeedbackForm() {
                   />
                 </motion.svg>
                 <div>
-                  <p className="font-display text-2xl font-bold">
+                  <p className="font-display text-2xl font-medium">
                     Thanks{firstName ? `, ${firstName}` : ""}!
                   </p>
                   <p className="mt-1 max-w-md text-sm leading-relaxed text-[#9aa3ad]">

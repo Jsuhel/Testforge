@@ -20,7 +20,7 @@ export default function Audience() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Who it is for
           </p>
-          <h2 className="max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.015em] md:text-5xl">
+          <h2 className="max-w-2xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
             Built for the people who sign off on quality.
           </h2>
         </Reveal>

@@ -38,7 +38,7 @@ export default function Faq() {
               <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
               FAQ
             </p>
-            <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.015em] md:text-5xl">
+            <h2 className="font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
               Straight answers.
             </h2>
           </Reveal>

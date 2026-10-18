@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, IBM_Plex_Sans, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
+/*
+ * Type system per the ElevenLabs style reference: Inter everywhere —
+ * whisper-weight 300 for display headlines, 400/500 for body and UI —
+ * with JetBrains Mono (the reference's sanctioned Geist Mono substitute)
+ * for technical micro-copy.
+ */
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
-
-const plex = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-plex",
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -51,7 +51,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
       <body
-        className={`${bricolage.variable} ${plex.variable} ${jetbrains.variable} font-sans`}
+        className={`${inter.variable} ${jetbrains.variable} font-sans`}
       >
         {children}
       </body>

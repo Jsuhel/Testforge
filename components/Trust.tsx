@@ -44,7 +44,7 @@ export default function Trust() {
               <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
               Trust
             </p>
-            <h2 className="font-display text-4xl font-bold leading-[1.05] tracking-[-0.015em] md:text-5xl">
+            <h2 className="font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
               You approve every stage.
             </h2>
             <p className="mt-5 max-w-md leading-relaxed text-[#9aa3ad]">
@@ -71,7 +71,7 @@ export default function Trust() {
                       {o.tag}
                     </span>
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold tracking-tight">
+                  <h3 className="mt-5 font-display text-xl font-medium tracking-tight">
                     {o.title}
                   </h3>
                   <p className="mt-3 text-sm leading-relaxed text-[#9aa3ad]">

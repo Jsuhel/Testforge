@@ -102,7 +102,7 @@ export default function HowItWorks() {
           <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
           How it works
         </p>
-        <h2 className="max-w-2xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.015em] md:text-5xl">
+        <h2 className="max-w-2xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
           Five steps. A human signs off on every one.
         </h2>
         <p className="mt-4 max-w-xl text-muted">
@@ -130,7 +130,7 @@ export default function HowItWorks() {
               >
                 STEP {s.num}
               </span>
-              <h3 className="mt-3 font-display text-2xl font-bold leading-tight tracking-tight xl:text-3xl">
+              <h3 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight xl:text-3xl">
                 {s.title}
               </h3>
               <p className="mt-4 max-w-md leading-relaxed text-muted">{s.lede}</p>
@@ -171,7 +171,7 @@ export default function HowItWorks() {
             aria-label={`Step ${s.num}: ${s.title}`}
           >
             <span className="font-mono text-xs text-accent">STEP {s.num}</span>
-            <h3 className="mt-2 font-display text-2xl font-bold leading-tight tracking-tight">
+            <h3 className="mt-2 font-display text-2xl font-light leading-tight tracking-tight">
               {s.title}
             </h3>
             <p className="mt-3 leading-relaxed text-muted">{s.lede}</p>

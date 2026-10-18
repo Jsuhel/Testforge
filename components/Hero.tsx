@@ -10,7 +10,7 @@ export default function Hero() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Test authoring for banking QA teams
           </p>
-          <h1 className="font-display text-[2.6rem] font-bold leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-[4.25rem]">
+          <h1 className="font-display text-[2.6rem] font-light leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-[4.25rem]">
             Upload the FSD.
             <br />
             Get tests you can&nbsp;trust.

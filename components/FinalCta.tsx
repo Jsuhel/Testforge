@@ -28,7 +28,7 @@ export default function FinalCta() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Get started
           </p>
-          <h2 className="max-w-xl font-display text-3xl font-bold leading-[1.05] tracking-[-0.015em] sm:text-4xl">
+          <h2 className="max-w-xl font-display text-3xl font-light leading-[1.05] tracking-[-0.015em] sm:text-4xl">
             Complete test coverage before the first coffee break.
           </h2>
           <blockquote className="mt-5 max-w-xl border-l-2 border-accent pl-4">

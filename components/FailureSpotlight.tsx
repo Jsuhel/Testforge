@@ -66,7 +66,7 @@ export default function FailureSpotlight() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Failure reports
           </p>
-          <h2 className="max-w-3xl font-display text-4xl font-bold leading-[1.05] tracking-[-0.015em] md:text-5xl">
+          <h2 className="max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
             A failure should reach the right person with the evidence attached.
           </h2>
           <p className="mt-4 max-w-2xl text-muted">

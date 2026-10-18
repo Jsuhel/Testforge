@@ -23,8 +23,8 @@ const config: Config = {
         fail: "var(--fail)",
       },
       fontFamily: {
-        display: ["var(--font-bricolage)", "Georgia", "serif"],
-        sans: ["var(--font-plex)", "Helvetica Neue", "Arial", "sans-serif"],
+        display: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
+        sans: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
         mono: ["var(--font-jetbrains)", "Consolas", "monospace"],
       },
       borderRadius: {
