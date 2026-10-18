@@ -3,8 +3,10 @@ import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import HowItWorks from "@/components/HowItWorks";
 import ChatSpotlight from "@/components/ChatSpotlight";
+import DataSpotlight from "@/components/DataSpotlight";
 import Trust from "@/components/Trust";
 import FailureSpotlight from "@/components/FailureSpotlight";
+import Coverage from "@/components/Coverage";
 import Audience from "@/components/Audience";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
@@ -25,8 +27,10 @@ export default function Home() {
         <Marquee />
         <HowItWorks />
         <ChatSpotlight />
+        <DataSpotlight />
         <Trust />
         <FailureSpotlight />
+        <Coverage />
         <Audience />
         <Faq />
         <FinalCta />

@@ -84,6 +84,27 @@ const VIEWPORTS = [
       [...document.querySelectorAll("h2")].some((h) => h.textContent.includes("Interrogate")),
     );
     ok(chatH2, "chat-with-FSD spotlight section present");
+    const dataH2 = await page.evaluate(() =>
+      [...document.querySelectorAll("h2")].some((h) => h.textContent.includes("finds itself")),
+    );
+    ok(dataH2, "database test-data section present");
+    const coverage = await page.evaluate(() => {
+      const h2s = [...document.querySelectorAll("h2")].map((h) => h.textContent);
+      const hasSection = h2s.some((t) => t.includes("whole regression"));
+      const cards = [...document.querySelectorAll("h3")].map((h) => h.textContent);
+      return {
+        hasSection,
+        logic: cards.includes("Logic & functional"),
+        regression: cards.includes("Regression"),
+        performance: cards.includes("Performance"),
+        integrity: cards.includes("Data integrity"),
+      };
+    });
+    ok(coverage.hasSection, "coverage section present");
+    ok(
+      coverage.logic && coverage.regression && coverage.performance && coverage.integrity,
+      `coverage cards: logic=${coverage.logic} regression=${coverage.regression} perf=${coverage.performance} integrity=${coverage.integrity}`,
+    );
     // anchors resolve
     const anchors = await page.evaluate(() =>
       [...document.querySelectorAll('header a[href^="#"], footer a[href^="#"]')]
@@ -116,13 +137,15 @@ const VIEWPORTS = [
       const github = !!document.querySelector('footer a[href*="github.com"]');
       const form = !!document.querySelector("#start form");
       const fields = document.querySelectorAll("#start form input, #start form textarea").length;
+      const upload = !!document.querySelector('#start form input[type="file"]');
       const ctaH = Math.round(document.querySelector("#start").getBoundingClientRect().height);
       const footH = Math.round(document.querySelector("footer").getBoundingClientRect().height);
       const footerBg = getComputedStyle(document.querySelector("footer")).backgroundColor;
-      return { links, github, form, fields, ctaH, footH, footerBg };
+      return { links, github, form, fields, upload, ctaH, footH, footerBg };
     });
     ok(foot.links >= 5 && foot.github, `footer has ${foot.links} links incl. GitHub`);
     ok(foot.form && foot.fields >= 4, `feedback form present with ${foot.fields} fields`);
+    ok(foot.upload, "demo form has document upload field");
     ok(foot.ctaH + foot.footH < 1100, `end-of-page compact: CTA ${foot.ctaH}px + footer ${foot.footH}px`);
     report.push(`      end-of-page: dark CTA ${foot.ctaH}px, light footer ${foot.footH}px (bg ${foot.footerBg})`);
 

@@ -26,25 +26,21 @@ structure, anchors, theme toggle and the mobile menu.
 npm run build && npm start
 ```
 
-## Feedback API (`POST /api/feedback`)
+## Demo-request API (`POST /api/feedback`)
 
-Validates `{ name, email, mobile, remarks }` and appends the row to
-`data/feedback.xlsx` (created on first submission).
+Accepts JSON `{ name, email, mobile, remarks }` or multipart form data with
+an optional `document` file (PDF/DOCX/MD/TXT, ≤ 5 MB). Every submission:
 
-**Deployed on Vercel:** serverless functions have a read-only filesystem, so
-the route falls back to the OS temp dir automatically — submissions never
-crash, and each row is logged to the function logs
-(Vercel → Project → Logs).
+1. Appends a row to `data/feedback.xlsx` locally (OS temp dir on serverless)
+2. Forwards the row to a Google Apps Script webhook → Google Sheet
+3. Uploads the attached document to Google Drive (via the script's
+   `doPost`) and stores the Drive link in the sheet row's Document column
 
-For durable storage on Vercel, set this environment variable to any webhook
-that accepts a JSON POST (Google Apps Script sheet, Slack incoming webhook,
-Zapier catch hook):
-
-```
-FEEDBACK_WEBHOOK_URL=https://…
-```
-
-Each submission forwards `{ at, name, email, mobile, remarks }` there.
+The webhook URL is baked in as a default; `FEEDBACK_WEBHOOK_URL` overrides it.
+Apps Script note: `/exec` 302-redirects and drops POST bodies, so the row
+travels as GET query params (`doGet`) and the document as a redirect-following
+JSON POST with base64 (`doPost` → Drive). The Apps Script must implement both
+handlers — see the repo's route comments for the expected script.
 
 ## Repo
 

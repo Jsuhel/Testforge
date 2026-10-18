@@ -33,6 +33,8 @@ export default function FeedbackForm() {
   const [errors, setErrors] = useState<Errors>({});
   const [serverError, setServerError] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [fileLabel, setFileLabel] = useState("");
+  const [fileError, setFileError] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
   const shake = useAnimationControls();
   const reduce = useReducedMotion();
@@ -54,6 +56,31 @@ export default function FeedbackForm() {
 
   function clearError(field: FieldName) {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
+  }
+
+  const MAX_FILE_MB = 5;
+
+  function formatSize(bytes: number): string {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  }
+
+  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const input = event.target;
+    const file = input.files?.[0];
+    setFileError("");
+    if (!file) {
+      setFileLabel("");
+      return;
+    }
+    if (file.size > MAX_FILE_MB * 1024 * 1024) {
+      setFileError(`That file is ${formatSize(file.size)} — please keep it under ${MAX_FILE_MB} MB.`);
+      input.value = "";
+      setFileLabel("");
+      return;
+    }
+    setFileLabel(`${file.name} · ${formatSize(file.size)}`);
   }
 
   function triggerShake() {
@@ -84,16 +111,27 @@ export default function FeedbackForm() {
       triggerShake();
       return;
     }
+    if (fileError) {
+      triggerShake();
+      return;
+    }
 
     setErrors({});
     setServerError("");
     setStatus("sending");
 
+    const payload = new FormData();
+    payload.append("name", values.name);
+    payload.append("email", values.email);
+    payload.append("mobile", values.mobile);
+    payload.append("remarks", values.remarks);
+    const file = data.get("document");
+    if (file instanceof File && file.size > 0) payload.append("document", file);
+
     try {
       const res = await fetch("/api/feedback", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: payload,
       });
       const json = (await res.json()) as { ok?: boolean; error?: string };
       if (!res.ok || !json.ok) {
@@ -114,6 +152,8 @@ export default function FeedbackForm() {
     formRef.current?.reset();
     setErrors({});
     setServerError("");
+    setFileLabel("");
+    setFileError("");
     setStatus("idle");
   }
 
@@ -285,6 +325,49 @@ export default function FeedbackForm() {
                       </label>
                     </div>
                     <FieldError message={errors.remarks} />
+                  </motion.div>
+
+                  <motion.div variants={item} className="sm:col-span-2">
+                    <div className="rounded-lg border border-dashed border-[#eef0ee33] px-4 py-3.5 transition-colors hover:border-[#eef0ee55]">
+                      <input
+                        id="fb-document"
+                        name="document"
+                        type="file"
+                        className="sr-only"
+                        accept=".pdf,.doc,.docx,.md,.txt"
+                        onChange={onFileChange}
+                      />
+                      <label
+                        htmlFor="fb-document"
+                        className="flex cursor-pointer items-center gap-3 text-sm text-[#9aa3ad] transition-colors hover:text-paper"
+                      >
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                          className="shrink-0"
+                        >
+                          <path
+                            d="M21.4 11.1 12.3 20a5 5 0 0 1-7.1-7.1l8.5-8.4a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.4a1.7 1.7 0 0 1-2.4-2.4l7.8-7.7"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        {fileLabel ? (
+                          <span className="min-w-0 truncate text-paper">{fileLabel}</span>
+                        ) : (
+                          <span>
+                            Attach your requirements document — PDF, DOCX or MD,
+                            up to {MAX_FILE_MB} MB (optional)
+                          </span>
+                        )}
+                      </label>
+                    </div>
+                    <FieldError message={fileError} />
                   </motion.div>
                 </motion.div>
 
