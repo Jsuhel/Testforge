@@ -80,6 +80,10 @@ const VIEWPORTS = [
     for (const want of ["how-it-works", "trust", "faq", "start"]) {
       ok(ids.includes(want), `section#${want} exists`);
     }
+    const chatH2 = await page.evaluate(() =>
+      [...document.querySelectorAll("h2")].some((h) => h.textContent.includes("Interrogate")),
+    );
+    ok(chatH2, "chat-with-FSD spotlight section present");
     // anchors resolve
     const anchors = await page.evaluate(() =>
       [...document.querySelectorAll('header a[href^="#"], footer a[href^="#"]')]

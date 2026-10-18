@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import HowItWorks from "@/components/HowItWorks";
+import ChatSpotlight from "@/components/ChatSpotlight";
 import Trust from "@/components/Trust";
 import FailureSpotlight from "@/components/FailureSpotlight";
 import Audience from "@/components/Audience";
@@ -23,6 +24,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <HowItWorks />
+        <ChatSpotlight />
         <Trust />
         <FailureSpotlight />
         <Audience />

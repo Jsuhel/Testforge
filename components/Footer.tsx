@@ -4,7 +4,7 @@ const LINKS = [
   { href: "#how-it-works", label: "How it works" },
   { href: "#trust", label: "Trust & control" },
   { href: "#faq", label: "FAQ" },
-  { href: "#start", label: "Book a walkthrough" },
+  { href: "#start", label: "Request a demo" },
   { href: "mailto:jsuhel122@gmail.com", label: "Email the team" },
 ];
 

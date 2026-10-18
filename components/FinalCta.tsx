@@ -9,8 +9,8 @@ const NEXT_STEPS = [
   },
   {
     n: "02",
-    title: "20-minute walkthrough",
-    body: "on your own requirements document",
+    title: "20-minute demo, your FSD",
+    body: "watch it analysed, chatted through, drafted live",
   },
   {
     n: "03",
@@ -26,7 +26,7 @@ export default function FinalCta() {
         <Reveal>
           <p className="kicker mb-4 flex items-center gap-3 text-[#9aa3ad]">
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
-            Get started
+            Request a demo
           </p>
           <h2 className="max-w-xl font-display text-3xl font-light leading-[1.05] tracking-[-0.015em] sm:text-4xl">
             Complete test coverage before the first coffee break.

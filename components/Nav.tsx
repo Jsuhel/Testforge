@@ -110,7 +110,7 @@ export default function Nav() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <a href="#start" className="btn btn-accent hidden px-4 py-2 text-sm md:inline-flex">
-            Try TestForge
+            Request a demo
           </a>
           <button
             type="button"
@@ -159,7 +159,7 @@ export default function Nav() {
               onClick={() => setOpen(false)}
               className="btn btn-accent mt-4 text-sm"
             >
-              Try TestForge
+              Request a demo
             </a>
           </div>
         </div>

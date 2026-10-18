@@ -119,9 +119,9 @@ export default function FeedbackForm() {
 
   const statusText =
     status === "sending"
-      ? "Sending your feedback…"
+      ? "Sending your request…"
       : status === "success"
-        ? "Feedback saved. Thank you!"
+        ? "Demo request received."
         : "";
 
   return (
@@ -135,10 +135,10 @@ export default function FeedbackForm() {
         transition={{ type: "spring", stiffness: 160, damping: 20 }}
       >
         <div className="relative">
-          <h3 className="font-display text-xl font-medium">Talk to the team</h3>
+          <h3 className="font-display text-xl font-medium">Request a demo</h3>
           <p className="mt-1 text-sm leading-relaxed text-[#9aa3ad]">
-            Tell us where test authoring hurts — we will show you how
-            TestForge.Ai handles it, on your own document.
+            Bring a real requirements document — watch TestForge.Ai analyse
+            it, chat through it, and draft the suite live.
           </p>
 
           <p aria-live="polite" className="sr-only">
@@ -188,19 +188,19 @@ export default function FeedbackForm() {
                     Thanks{firstName ? `, ${firstName}` : ""}!
                   </p>
                   <p className="mt-1 max-w-md text-sm leading-relaxed text-[#9aa3ad]">
-                    Your feedback is saved. We usually reply within one working
-                    day.
+                    Your demo request is in. We&apos;ll confirm a slot within
+                    one working day.
                   </p>
                   <span className="chip mt-3 text-[#9aa3ad]">
                     <span
                       className="h-1.5 w-1.5 rounded-full bg-[#4cbf86]"
                       aria-hidden="true"
                     />
-                    Saved to the team sheet
+                    Request received
                   </span>
                 </div>
                 <button type="button" onClick={reset} className="btn btn-ghost">
-                  Send another message
+                  Send another request
                 </button>
               </motion.div>
             ) : (
@@ -281,7 +281,7 @@ export default function FeedbackForm() {
                         onChange={() => clearError("remarks")}
                       />
                       <label htmlFor="fb-remarks">
-                        Remarks — feedback, or ask for a meeting
+                        What should the demo cover? (optional)
                       </label>
                     </div>
                     <FieldError message={errors.remarks} />
@@ -323,7 +323,7 @@ export default function FeedbackForm() {
                           exit={{ opacity: 0, y: -6 }}
                           transition={{ duration: 0.15 }}
                         >
-                          Send feedback
+                          Request a demo
                           <motion.svg
                             width="14"
                             height="14"
@@ -351,7 +351,7 @@ export default function FeedbackForm() {
                     </AnimatePresence>
                   </motion.button>
                   <p className="text-xs text-[#9aa3ad]">
-                    Saved to our records — no spam, ever.
+                    A calendar invite and nothing else — no spam.
                   </p>
                 </motion.div>
 
