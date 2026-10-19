@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { promises as fs } from "node:fs";
-import https from "node:https";
 import os from "node:os";
 import path from "node:path";
 import * as XLSX from "xlsx";
@@ -15,48 +14,6 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^[+()\-\s\d]{7,20}$/;
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_DOC = /\.(pdf|docx?|md|txt)$/i;
-
-/**
- * POST that survives Apps Script's 302 redirect with body intact.
- * fetch() downgrades POST→GET on 301/302 and drops the body, so this
- * helper follows the redirect chain manually, re-sending method + body.
- */
-function postJsonFollow(
-  urlStr: string,
-  body: string,
-  redirects = 0,
-): Promise<{ status: number; body: string }> {
-  return new Promise((resolve, reject) => {
-    const url = new URL(urlStr);
-    const req = https.request(
-      {
-        hostname: url.hostname,
-        path: url.pathname + url.search,
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Content-Length": Buffer.byteLength(body),
-        },
-      },
-      (res) => {
-        const status = res.statusCode ?? 0;
-        const location = res.headers.location;
-        if ([301, 302, 303, 307, 308].includes(status) && location && redirects < 5) {
-          res.resume();
-          const next = new URL(location, url).toString();
-          resolve(postJsonFollow(next, body, redirects + 1));
-          return;
-        }
-        let chunks = "";
-        res.on("data", (c) => (chunks += c));
-        res.on("end", () => resolve({ status, body: chunks }));
-      },
-    );
-    req.on("error", reject);
-    req.write(body);
-    req.end();
-  });
-}
 
 /**
  * Durable sink for every submission — a Google Apps Script webhook that
@@ -219,32 +176,40 @@ export async function POST(request: Request) {
       "[feedback] no webhook configured — this submission will NOT reach the Google Sheet.",
     );
   } else {
-    // 1. Uploaded document → Google Drive via the script's doPost (the
-    //    redirect-preserving POST keeps the JSON body intact), which returns
-    //    a Drive link for the sheet row.
+    // 1. Uploaded document → Google Drive via the script's doPost. Apps
+    //    Script executes doPost on the initial request; its 302 only
+    //    transports the response, so a plain fetch POST carries the body
+    //    through and returns the script's JSON (incl. the Drive link).
     if (file) {
       try {
         const b64 = Buffer.from(await file.arrayBuffer()).toString("base64");
-        const res = await postJsonFollow(
-          webhook,
-          JSON.stringify({
+        const res = await fetch(webhook, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
             filename: file.name,
             mimeType: file.type || "application/octet-stream",
             dataB64: b64,
           }),
-        );
-        const trimmed = res.body.trimStart();
-        if (res.status === 200 && !trimmed.startsWith("<")) {
-          const parsed = JSON.parse(res.body) as { ok?: boolean; fileUrl?: string; error?: string };
+          redirect: "follow",
+        });
+        const body = await res.text();
+        const trimmed = body.trimStart();
+        if (res.ok && !trimmed.startsWith("<")) {
+          const parsed = JSON.parse(body) as { ok?: boolean; fileUrl?: string; error?: string };
           if (parsed.ok && parsed.fileUrl) {
             docUrl = parsed.fileUrl;
             console.log(`[feedback] document stored in Drive: ${docUrl}`);
+          } else if (parsed.ok) {
+            console.warn(
+              "[feedback] script accepted the document but returned no Drive link — update the Apps Script to the Drive version (see APPS_SCRIPT.gs).",
+            );
           } else {
-            console.error(`[feedback] drive upload rejected: ${parsed.error ?? res.body.slice(0, 120)}`);
+            console.error(`[feedback] drive upload rejected: ${parsed.error ?? body.slice(0, 120)}`);
           }
         } else {
           console.error(
-            `[feedback] drive upload failed (status ${res.status}): ${res.body.slice(0, 160)}`,
+            `[feedback] drive upload failed (status ${res.status}): ${body.slice(0, 160)}`,
           );
         }
       } catch (error) {
