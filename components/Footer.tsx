@@ -20,7 +20,7 @@ export default function Footer() {
               aria-hidden="true"
               width={32}
               height={32}
-              className="h-8 w-8 shrink-0"
+              className="h-8 w-8 shrink-0 rounded"
             />
             <span className="whitespace-nowrap font-display text-base font-bold tracking-tight">
               TestForge<span className="text-accent">.Ai</span>
