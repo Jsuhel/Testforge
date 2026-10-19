@@ -88,7 +88,7 @@ export default function Nav() {
             width={40}
             height={40}
             priority
-            className="h-8 w-8 shrink-0 rounded transition-transform duration-200 ease-out group-hover:scale-105 md:h-10 md:w-10"
+            className="h-8 w-8 shrink-0 rounded-[4px] transition-transform duration-200 ease-out group-hover:scale-105 md:h-10 md:w-10"
           />
           <span className="whitespace-nowrap font-display text-base font-bold tracking-tight sm:text-lg md:text-xl">
             TestForge<span className="text-accent">.Ai</span>
