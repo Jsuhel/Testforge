@@ -121,6 +121,8 @@ export default function FeedbackForm() {
     setServerError("");
     setStatus("sending");
 
+    const file = data.get("document");
+
     // Primary path: Supabase (database row + document in storage).
     if (supabaseEnabled) {
       try {
@@ -160,7 +162,6 @@ export default function FeedbackForm() {
     payload.append("email", values.email);
     payload.append("mobile", values.mobile);
     payload.append("remarks", values.remarks);
-    const file = data.get("document");
     if (file instanceof File && file.size > 0) payload.append("document", file);
 
     try {
