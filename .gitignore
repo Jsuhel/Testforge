@@ -12,3 +12,6 @@ next-env.d.ts
 
 # test artifacts
 test-*.png
+wordmark-preview.png
+logo-*-preview.png
+logo-4px-preview.png
