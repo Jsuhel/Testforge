@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   type Variants,
 } from "framer-motion";
+import { supabase, supabaseEnabled } from "@/lib/supabase";
 
 
 type Status = "idle" | "sending" | "success";
@@ -120,6 +121,40 @@ export default function FeedbackForm() {
     setServerError("");
     setStatus("sending");
 
+    // Primary path: Supabase (database row + document in storage).
+    if (supabaseEnabled) {
+      try {
+        let documentPath = "";
+        if (file instanceof File && file.size > 0) {
+          const ext = (file.name.match(/\.[a-z0-9]+$/i) ?? [".dat"])[0];
+          documentPath = `demo/${crypto.randomUUID()}${ext}`;
+          const { error: upErr } = await supabase.storage
+            .from("documents")
+            .upload(documentPath, file, { contentType: file.type || undefined });
+          if (upErr) throw new Error(upErr.message);
+        }
+        const { error: insErr } = await supabase.from("demo_requests").insert({
+          name: values.name,
+          email: values.email,
+          mobile: values.mobile,
+          remarks: values.remarks,
+          document_path: documentPath || null,
+        });
+        if (insErr) throw new Error(insErr.message);
+        setFirstName(values.name.trim().split(/\s+/)[0]);
+        setStatus("success");
+        return;
+      } catch (err) {
+        setServerError(
+          err instanceof Error ? err.message : "Something went wrong.",
+        );
+        setStatus("idle");
+        triggerShake();
+        return;
+      }
+    }
+
+    // Fallback path: the API route (Apps Script sheet + Drive).
     const payload = new FormData();
     payload.append("name", values.name);
     payload.append("email", values.email);
