@@ -2,11 +2,11 @@ import MockSidebar from "./MockSidebar";
 import TypingPlaceholder from "./TypingPlaceholder";
 
 /**
- * Mock of the real first screen: one search bar, one sidebar icon.
+ * Mock of the real first screen: one search bar, full sidebar.
  */
 export default function HeroMock() {
   return (
-    <div className="mock mock-fixed w-full overflow-hidden" role="img" aria-label="TestForge first screen: a single search bar with one icon in the sidebar">
+    <div className="mock mock-fixed w-full overflow-hidden" role="img" aria-label="TestForge first screen: a search bar with the product sidebar beside it">
       <div className="mock-titlebar">
         <span className="mock-dot" />
         <span className="mock-dot" />
@@ -16,7 +16,7 @@ export default function HeroMock() {
         </span>
       </div>
       <div className="flex min-h-[320px] sm:min-h-[360px]">
-        <MockSidebar count={1} activeIndex={0} />
+        <MockSidebar count={5} activeIndex={0} />
         <div className="flex min-w-0 flex-1 flex-col items-center justify-center gap-5 px-6 py-10">
           <p className="font-display text-lg font-semibold tracking-tight text-[#14181f]">
             Start with the document
