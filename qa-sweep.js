@@ -99,14 +99,20 @@ const ok = (pass, msg, detail = "") =>
   const valErrors = await page.evaluate(() => document.querySelectorAll("#start [role=alert]").length);
   ok(valErrors >= 2, "empty form shows inline validation errors", `${valErrors} messages`);
 
-  // --- 8. Focus visibility on logo link (keyboard Tab triggers :focus-visible) ---
-  await page.keyboard.press("Tab");
-  await page.waitForTimeout(200);
-  const focusStyle = await page.evaluate(() => {
-    const a = document.querySelector('header a[aria-label^="TestForge"]');
-    return getComputedStyle(a).outlineStyle;
-  });
-  ok(focusStyle !== "none", "logo link has visible keyboard focus outline", focusStyle);
+  // --- 8. Focus visibility (keyboard Tab; first Tab hits the skip link) ---
+  let outline = "never-focused";
+  for (let t = 0; t < 8; t++) {
+    await page.keyboard.press("Tab");
+    await page.waitForTimeout(80);
+    const onLogo = await page.evaluate(() =>
+      document.activeElement?.matches('header a[aria-label^="TestForge"]'),
+    );
+    if (onLogo) {
+      outline = await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle);
+      break;
+    }
+  }
+  ok(outline !== "none" && outline !== "never-focused", "logo link has visible keyboard focus outline", outline);
 
   ok(errors.length === 0, "zero console/page errors", errors.slice(0, 3).join(" | ") || "clean");
 
