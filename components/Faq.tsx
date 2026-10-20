@@ -10,15 +10,15 @@ const FAQS = [
   },
   {
     q: "What FSD formats work?",
-    a: "PDF, DOCX and Markdown are read directly. Scanned documents need to go through OCR first. When a section is ambiguous, TestForge asks a question instead of guessing — that question is often the most valuable part of the review.",
+    a: "PDF, DOCX and Markdown are read directly. Scanned documents need to go through OCR first. When a section is ambiguous, TestForge asks a question instead of guessing; that question is often the most valuable part of the review.",
   },
   {
     q: "How are the scripts verified?",
-    a: "Every generated Playwright script is shown in full before anything runs. You can read it line by line, edit it, or reject it. Scripts execute only after you approve them, and they stay standard Playwright — no proprietary runner, no lock-in.",
+    a: "Every generated Playwright script is shown in full before anything runs. You can read it line by line, edit it, or reject it. Scripts execute only after you approve them, and they stay standard Playwright: no proprietary runner, no lock-in.",
   },
   {
     q: "Where do tests run?",
-    a: "In your environment — locally or wired into your own CI pipeline. TestForge generates and maintains the suites; it does not host the execution of your banking systems.",
+    a: "In your environment: locally or wired into your own CI pipeline. TestForge generates and maintains the suites; it does not host the execution of your banking systems.",
   },
   {
     q: "Is my data safe?",

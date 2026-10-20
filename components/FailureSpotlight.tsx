@@ -71,7 +71,7 @@ export default function FailureSpotlight() {
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
             Say a customer transfers ₹40,000 from an account holding ₹2,500.
-            The app must refuse. In this run it didn&apos;t — and the report
+            The app must refuse. In this run it didn&apos;t, and the report
             already knows why.
           </p>
         </Reveal>
@@ -121,7 +121,7 @@ export default function FailureSpotlight() {
                       Actual
                     </dt>
                     <dd className="text-[#c23a2b]">
-                      Transfer went through — balance now −₹2,500
+                      Transfer went through: balance now −₹2,500
                     </dd>
                   </div>
                   <div className="grid grid-cols-[5.5rem_1fr] gap-x-3">
@@ -130,7 +130,7 @@ export default function FailureSpotlight() {
                     </dt>
                     <dd className="text-[#14181f]">
                       Likely cause:{" "}
-                      <span className="font-semibold">test data</span> — an
+                      <span className="font-semibold">test data</span>: an
                       earlier test in the same run topped up this account, so
                       the balance was high enough to allow it.
                     </dd>

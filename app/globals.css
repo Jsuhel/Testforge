@@ -139,7 +139,7 @@ body {
   animation: caret-blink 1s steps(1) infinite;
 }
 
-/* Typewriter content slides left (transform only — zero reflow)
+/* Typewriter content slides left (transform only, zero reflow)
    to keep the caret visible once the text overflows its fixed box. */
 .typing-scroll {
   transition: transform 140ms ease-out;

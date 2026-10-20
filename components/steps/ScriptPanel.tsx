@@ -13,7 +13,7 @@ export default function ScriptPanel() {
 
       <pre className="flex-1 overflow-hidden px-4 py-3 font-mono text-[10.5px] leading-[1.7] text-[#14181f]">
         <code>
-          <span className="text-[#545b66]">{"// generated from approved TC-014 — edit freely"}</span>
+          <span className="text-[#545b66]">{"// generated from approved TC-014 · edit freely"}</span>
           {"\n"}
           <span className="text-[#e4572e]">test</span>
           <span>(</span>

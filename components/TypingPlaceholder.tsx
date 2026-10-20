@@ -6,11 +6,11 @@ const TEXT = "Upload FSD and chat with AI for explanation...";
 
 /**
  * Typewriter placeholder inside a rigid, fixed bounding box
- * (overflow hidden + nowrap — text length can never reflow the page).
- * Types the prompt, holds, deletes, pauses and types again — forever,
+ * (overflow hidden + nowrap; text length can never reflow the page).
+ * Types the prompt, holds, deletes, pauses and types again, forever,
  * so the hero keeps moving for as long as a visitor watches. Once the
  * text passes the right edge the content slides left via transform
- * only — like a real input — so the caret stays visible; the exiting
+ * only, like a real input, so the caret stays visible; the exiting
  * characters fade at the left edge.
  */
 export default function TypingPlaceholder() {

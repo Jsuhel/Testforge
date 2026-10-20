@@ -30,7 +30,7 @@ export default function TestCasesPanel() {
     <div className="flex h-full flex-col p-4" aria-hidden="true">
       <div className="mb-3 flex items-center justify-between">
         <span className="font-mono text-[10px] tracking-wider text-[#545b66]">
-          41 CASES GENERATED — REVIEW EACH, THEN APPROVE
+          41 CASES GENERATED · REVIEW EACH, THEN APPROVE
         </span>
         <span className="chip border-[#14181f2e] text-[#545b66]">1 of 41</span>
       </div>

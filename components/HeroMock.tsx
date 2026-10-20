@@ -50,7 +50,7 @@ export default function HeroMock() {
               </span>
             </div>
             <p className="mt-3 text-center font-mono text-[10px] tracking-wide text-[#545b66]">
-              PDF · DOCX · Markdown — nothing leaves your workspace without approval
+              PDF · DOCX · Markdown. Nothing leaves your workspace without approval
             </p>
           </div>
           <div className="flex items-center gap-2">

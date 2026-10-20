@@ -7,7 +7,7 @@ import Reveal from "./Reveal";
 const POINTS = [
   {
     title: "Answers cite the FSD",
-    body: "Every reply points at the section it came from — §4.2, §7.1 — so you can verify, not trust.",
+    body: "Every reply points at the section it came from (§4.2, §7.1) so you can verify, not trust.",
   },
   {
     title: "Gaps become questions",
@@ -15,7 +15,7 @@ const POINTS = [
   },
   {
     title: "Clarifications feed the suite",
-    body: "Each answer you confirm becomes coverage — boundary values, negative paths, role checks — drafted while you chat.",
+    body: "Each answer you confirm becomes coverage: boundary values, negative paths, role checks, drafted while you chat.",
   },
 ];
 
@@ -36,7 +36,7 @@ function TypingDots() {
   );
 }
 
-/** Extended chat excerpt — the conversation after the FSD is analysed. */
+/** Extended chat excerpt: the conversation after the FSD is analysed. */
 function ChatExcerpt() {
   return (
     <div className="flex h-full flex-col gap-3 p-4" aria-hidden="true">
@@ -52,7 +52,7 @@ function ChatExcerpt() {
       </div>
 
       <div className="max-w-[92%] rounded-lg rounded-bl-sm bg-[#14181f] px-3 py-2.5 text-[12px] leading-relaxed text-[#f4f1ea]">
-        <span className="font-mono text-[10px] text-[#ffb59d]">§4.2 Maker-checker</span> — a
+        <span className="font-mono text-[10px] text-[#ffb59d]">§4.2 Maker-checker</span>: a
         second approval by the same maker is rejected; the checker&apos;s approval is
         what executes.
         <span className="mt-2 block">
@@ -63,11 +63,11 @@ function ChatExcerpt() {
       </div>
 
       <div className="ml-auto max-w-[85%] rounded-lg rounded-br-sm border border-[#14181f2e] bg-white px-3 py-2 text-[12px] leading-snug text-[#14181f]">
-        And the daily transfer limits — what are the boundaries?
+        And the daily transfer limits: what are the boundaries?
       </div>
 
       <div className="max-w-[92%] rounded-lg rounded-bl-sm bg-[#14181f] px-3 py-2.5 text-[12px] leading-relaxed text-[#f4f1ea]">
-        <span className="font-mono text-[10px] text-[#ffb59d]">§7.1 Limits</span> — min ₹100,
+        <span className="font-mono text-[10px] text-[#ffb59d]">§7.1 Limits</span>: min ₹100,
         max ₹10,00,000 per day per customer.
         <span className="mt-2 flex flex-wrap gap-1.5">
           <span className="chip border-[#1f7a4d3d] text-[#1f7a4d]">₹100 exact</span>
@@ -105,7 +105,7 @@ export default function ChatSpotlight() {
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
             Once TestForge has analysed the document, the conversation begins.
-            Ask about flows, boundaries, roles or edge cases — and keep asking
+            Ask about flows, boundaries, roles or edge cases, and keep asking
             until every doubt is on the table.
           </p>
           <ul className="mt-8 grid gap-5">

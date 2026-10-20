@@ -16,7 +16,7 @@ const MAX_FILE_BYTES = 5 * 1024 * 1024;
 const ALLOWED_DOC = /\.(pdf|docx?|md|txt)$/i;
 
 /**
- * Durable sink for every submission — a Google Apps Script webhook that
+ * Durable sink for every submission: a Google Apps Script webhook that
  * appends the row to the TestForge Feedback sheet. FEEDBACK_WEBHOOK_URL
  * (Vercel → Settings → Environment Variables) overrides this default;
  * set it if the script URL is ever rotated.
@@ -31,7 +31,7 @@ function stamp(): string {
 /**
  * Where the sheet can live, in order of preference.
  * Vercel (and most serverless hosts) mount the project directory read-only,
- * so writes there fail with EROFS — the OS temp dir is the writable fallback
+ * so writes there fail with EROFS; the OS temp dir is the writable fallback
  * (persists for the lifetime of the warm function instance).
  */
 function sheetCandidates(): string[] {
@@ -47,7 +47,7 @@ async function appendRow(row: string[]): Promise<string> {
     try {
       await fs.mkdir(path.dirname(file), { recursive: true });
 
-      // Read + write via node:fs only — SheetJS's own fs hooks do not
+      // Read + write via node:fs only: SheetJS's own fs hooks do not
       // survive the Next.js server bundle on Windows.
       let workbook: XLSX.WorkBook;
       try {
@@ -55,7 +55,7 @@ async function appendRow(row: string[]): Promise<string> {
         workbook = XLSX.read(existing, { type: "buffer" });
       } catch (error) {
         if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-        // First submission — create the workbook with a header row.
+        // First submission: create the workbook with a header row.
         workbook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(
           workbook,
@@ -138,7 +138,7 @@ export async function POST(request: Request) {
     }
     if (file.size > MAX_FILE_BYTES) {
       return NextResponse.json(
-        { ok: false, error: "That document is over 5 MB — please attach a smaller file." },
+        { ok: false, error: "That document is over 5 MB. Please attach a smaller file." },
         { status: 400 },
       );
     }
@@ -167,13 +167,13 @@ export async function POST(request: Request) {
   const row = [stamp(), name, email, mobile, remarks];
   let docUrl = "";
 
-  // Durable sink — Apps Script webhook by default; FEEDBACK_WEBHOOK_URL can
+  // Durable sink: Apps Script webhook by default; FEEDBACK_WEBHOOK_URL can
   // override it. Failures here never block the submission; the local sheet
   // below remains the backup.
   const webhook = process.env.FEEDBACK_WEBHOOK_URL || DEFAULT_FEEDBACK_WEBHOOK_URL;
   if (!webhook) {
     console.warn(
-      "[feedback] no webhook configured — this submission will NOT reach the Google Sheet.",
+      "[feedback] no webhook configured: this submission will NOT reach the Google Sheet.",
     );
   } else {
     // 1. Uploaded document → Google Drive via the script's doPost. Apps
@@ -202,7 +202,7 @@ export async function POST(request: Request) {
             console.log(`[feedback] document stored in Drive: ${docUrl}`);
           } else if (parsed.ok) {
             console.warn(
-              "[feedback] script accepted the document but returned no Drive link — update the Apps Script to the Drive version (see APPS_SCRIPT.gs).",
+              "[feedback] script accepted the document but returned no Drive link: update the Apps Script to the Drive version (see APPS_SCRIPT.gs).",
             );
           } else {
             console.error(`[feedback] drive upload rejected: ${parsed.error ?? body.slice(0, 120)}`);

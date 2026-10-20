@@ -62,7 +62,7 @@ const CARDS = [
   {
     icon: <LogicIcon />,
     title: "Logic & functional",
-    body: "Every rule the FSD states becomes an asserted Playwright step — the happy paths, the negative paths and the combinations in between.",
+    body: "Every rule the FSD states becomes an asserted Playwright step: the happy paths, the negative paths and the combinations in between.",
   },
   {
     icon: <RegressionIcon />,
@@ -72,7 +72,7 @@ const CARDS = [
   {
     icon: <GaugeIcon />,
     title: "Performance",
-    body: "Page-load and API-latency budgets asserted in the same run, from the same traces — no separate tooling to wire up.",
+    body: "Page-load and API-latency budgets asserted in the same run, from the same traces. No separate tooling to wire up.",
   },
   {
     icon: <DbCheckIcon />,
@@ -95,7 +95,7 @@ export default function Coverage() {
           </h2>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
             The same Playwright pipeline that drafts your functional suite
-            carries the rest — logic, regression, performance and the data
+            carries the rest: logic, regression, performance and the data
             checks that prove the system did what the screen says it did.
           </p>
         </Reveal>

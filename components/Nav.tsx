@@ -50,7 +50,7 @@ function ThemeToggle() {
     try {
       localStorage.setItem("tf-theme", next);
     } catch {
-      /* private mode — theme just won't persist */
+      /* private mode: theme just won't persist */
     }
     setTheme(next);
   }
@@ -78,7 +78,7 @@ export default function Nav() {
       >
         <a
           href="#top"
-          aria-label="TestForge.Ai — back to top"
+          aria-label="TestForge.Ai back to top"
           className="group flex min-w-0 shrink-0 items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           <Image

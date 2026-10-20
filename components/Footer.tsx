@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col gap-1.5 border-t border-line pt-4 font-mono text-[11px] text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 TestForge.Ai — built for banking QA teams</p>
+          <p>© 2026 TestForge.Ai · built for banking QA teams</p>
           <p>AI does the heavy work. People stay in control.</p>
         </div>
       </div>

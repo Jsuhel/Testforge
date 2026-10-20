@@ -14,7 +14,7 @@ export default function ChatPanel() {
       </div>
 
       <div className="max-w-[92%] rounded-lg rounded-bl-sm bg-[#14181f] px-3 py-2.5 text-[12px] leading-relaxed text-[#f4f1ea]">
-        Section 4.2 — requests after the EOD cutoff are queued to the next
+        Section 4.2: requests after the EOD cutoff are queued to the next
         working day, and interest is charged to the previous business day.
         <span className="mt-2 block border-l-2 border-[#e4572e] pl-2 text-[#ffb59d]">
           Gap: the FSD doesn&apos;t say whether the penalty waiver applies to

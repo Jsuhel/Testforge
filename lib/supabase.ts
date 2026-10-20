@@ -1,9 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
 /**
- * Supabase — public anon credentials, safe for the browser by design
+ * Supabase: public anon credentials, safe for the browser by design
  * (Row Level Security restricts what anonymous users can do: insert
- * demo requests, upload documents — nothing else).
+ * demo requests, upload documents, nothing else).
  *
  * Values are baked in after `supabase login` provisions the project;
  * NEXT_PUBLIC_* env vars override them if ever rotated.

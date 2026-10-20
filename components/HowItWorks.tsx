@@ -32,7 +32,7 @@ const STEPS: Step[] = [
   {
     num: "02",
     title: "Generate and verify test cases",
-    lede: "One click writes the suite — boundaries, roles, edge cases. A person reviews every case and approves it. Nothing moves on without a human yes.",
+    lede: "One click writes the suite: boundaries, roles, edge cases. A person reviews every case and approves it. Nothing moves on without a human yes.",
     tab: "Test Cases",
     sidebarCount: 2,
     activeIndex: 1,
@@ -41,7 +41,7 @@ const STEPS: Step[] = [
   {
     num: "03",
     title: "Automate",
-    lede: "TestForge asks for exactly what it needs — URLs, roles, test data. Enter it manually, or connect the database if you prefer. Then verify the Playwright scripts it writes.",
+    lede: "TestForge asks for exactly what it needs: URLs, roles, test data. Enter it manually, or connect the database if you prefer. Then verify the Playwright scripts it writes.",
     tab: "Automation",
     sidebarCount: 3,
     activeIndex: 2,
@@ -106,7 +106,7 @@ export default function HowItWorks() {
           Five steps. A human signs off on every one.
         </h2>
         <p className="mt-4 max-w-xl text-muted">
-          The sidebar starts empty. Each stage you clear earns the next icon —
+          The sidebar starts empty. Each stage you clear earns the next icon:
           Dashboard, Test Cases, Automation, Execution, Reports.
         </p>
       </div>

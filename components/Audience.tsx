@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 const COLUMNS = [
   {
     role: "QA engineers",
-    body: "You stop copying requirements into test cases by hand. TestForge drafts the suite from the FSD — boundaries, roles, negative paths — and you spend your time on the judgment calls: reviewing cases, sharpening scripts, digging into the failures that matter. The boring bulk is done before you open the tab.",
+    body: "You stop copying requirements into test cases by hand. TestForge drafts the suite from the FSD (boundaries, roles, negative paths), and you spend your time on the judgment calls: reviewing cases, sharpening scripts, digging into the failures that matter. The boring bulk is done before you open the tab.",
   },
   {
     role: "QA leads in banking and finance",

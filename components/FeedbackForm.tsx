@@ -76,7 +76,7 @@ export default function FeedbackForm() {
       return;
     }
     if (file.size > MAX_FILE_MB * 1024 * 1024) {
-      setFileError(`That file is ${formatSize(file.size)} — please keep it under ${MAX_FILE_MB} MB.`);
+      setFileError(`That file is ${formatSize(file.size)}. Please keep it under ${MAX_FILE_MB} MB.`);
       input.value = "";
       setFileLabel("");
       return;
@@ -213,7 +213,7 @@ export default function FeedbackForm() {
         <div className="relative">
           <h3 className="font-display text-xl font-medium">Request a demo</h3>
           <p className="mt-1 text-sm leading-relaxed text-[#9aa3ad]">
-            Bring a real requirements document — watch TestForge.Ai analyse
+            Bring a real requirements document and watch TestForge.Ai analyse
             it, chat through it, and draft the suite live.
           </p>
 
@@ -292,7 +292,7 @@ export default function FeedbackForm() {
                 viewport={{ once: true, margin: "-60px" }}
                 exit={{ opacity: 0, y: -8 }}
               >
-                {/* Shake target — animated separately so field state survives */}
+                {/* Shake target: animated separately so field state survives */}
                 <motion.div animate={shake} className="grid gap-4 sm:grid-cols-2">
                   <motion.div variants={item}>
                     <div className="field">
@@ -397,7 +397,7 @@ export default function FeedbackForm() {
                           <span className="min-w-0 truncate text-paper">{fileLabel}</span>
                         ) : (
                           <span>
-                            Attach your requirements document — PDF, DOCX or MD,
+                            Attach your requirements document: PDF, DOCX or MD,
                             up to {MAX_FILE_MB} MB (optional)
                           </span>
                         )}
@@ -470,7 +470,7 @@ export default function FeedbackForm() {
                     </AnimatePresence>
                   </motion.button>
                   <p className="text-xs text-[#9aa3ad]">
-                    A calendar invite and nothing else — no spam.
+                    A calendar invite and nothing else. No spam.
                   </p>
                 </motion.div>
 

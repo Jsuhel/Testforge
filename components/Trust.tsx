@@ -29,7 +29,7 @@ const OPTIONS = [
         />
       </svg>
     ),
-    body: "Point TestForge at a staging or masked database and it looks up its own test data — accounts, roles, boundary values. Read-only access, and you choose when.",
+    body: "Point TestForge at a staging or masked database and it looks up its own test data: accounts, roles, boundary values. Read-only access, and you choose when.",
     tag: "faster",
   },
 ];
@@ -48,7 +48,7 @@ export default function Trust() {
               You approve every stage.
             </h2>
             <p className="mt-5 max-w-md leading-relaxed text-[#9aa3ad]">
-              TestForge does the heavy work — reading, drafting, scripting,
+              TestForge does the heavy work: reading, drafting, scripting,
               running. The decision to accept any of it stays with a person, at
               every one of the five stages.
             </p>

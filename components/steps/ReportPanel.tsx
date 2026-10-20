@@ -23,7 +23,7 @@ export default function ReportPanel() {
           Actual
         </span>
         <span className="text-[#c23a2b]">
-          Transfer went through — balance now −₹2,500
+          Transfer went through: balance now −₹2,500
         </span>
       </div>
 
@@ -46,7 +46,7 @@ export default function ReportPanel() {
             Verdict
           </p>
           <p className="mt-1 text-[11px] leading-snug text-[#14181f]">
-            Likely cause: <span className="font-medium">test data</span> — an
+            Likely cause: <span className="font-medium">test data</span>: an
             earlier test in this run topped up the account, so there was enough
             balance to send.
           </p>

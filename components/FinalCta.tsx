@@ -37,7 +37,7 @@ export default function FinalCta() {
               whole suite before lunch.&rdquo;
             </p>
             <cite className="mt-1.5 block font-mono text-[11px] not-italic uppercase tracking-[0.14em] text-[#9aa3ad]">
-              — QA lead, early-access team
+              QA lead, early-access team
             </cite>
           </blockquote>
 
@@ -49,7 +49,7 @@ export default function FinalCta() {
                 </span>
                 <span>
                   <span className="font-semibold">{s.title}</span>{" "}
-                  <span className="text-[#9aa3ad]">— {s.body}</span>
+                  <span className="text-[#9aa3ad]">· {s.body}</span>
                 </span>
               </li>
             ))}

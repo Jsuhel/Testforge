@@ -8,7 +8,7 @@ const POINTS = [
   },
   {
     title: "Boundary values, pulled automatically",
-    body: "Minimums, maximums and edge rows come straight from the source — the same limits the FSD declares are the ones tested.",
+    body: "Minimums, maximums and edge rows come straight from the source; the same limits the FSD declares are the ones tested.",
   },
   {
     title: "Read-only, and only when you say so",
@@ -101,7 +101,7 @@ export default function DataSpotlight() {
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
             Point TestForge at a staging or masked database once. From then
-            on it looks up its own accounts, roles and boundary values —
+            on it looks up its own accounts, roles and boundary values, and
             the automation proceeds with real data, not hand-me-down
             spreadsheets.
           </p>
