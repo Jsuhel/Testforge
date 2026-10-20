@@ -22,7 +22,7 @@ export default function Footer() {
               height={32}
               className="h-8 w-8 shrink-0"
             />
-            <span className="whitespace-nowrap font-display text-[17px] font-bold leading-none tracking-[-0.01em] text-paper">
+            <span className="whitespace-nowrap font-display text-[17px] font-bold leading-none tracking-[-0.01em]">
               TestForge
               <span className="font-semibold text-accent">.Ai</span>
             </span>
