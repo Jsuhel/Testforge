@@ -82,12 +82,13 @@ export default function Nav() {
           className="group flex min-w-0 shrink-0 items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           <Image
-            src="/logo.png"
+            src="/logo-128.png"
             alt=""
             aria-hidden="true"
             width={40}
             height={40}
             priority
+            unoptimized
             className="h-8 w-8 shrink-0 transition-transform duration-200 ease-out group-hover:scale-105 md:h-10 md:w-10"
           />
           <span className="whitespace-nowrap font-display text-[17px] font-bold leading-none tracking-[-0.01em] sm:text-lg md:text-xl">

@@ -15,11 +15,12 @@ export default function Footer() {
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex min-w-0 items-center gap-2.5">
             <Image
-              src="/logo.png"
+              src="/logo-128.png"
               alt=""
               aria-hidden="true"
               width={32}
               height={32}
+              unoptimized
               className="h-8 w-8 shrink-0"
             />
             <span className="whitespace-nowrap font-display text-[17px] font-bold leading-none tracking-[-0.01em]">

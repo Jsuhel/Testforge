@@ -18,6 +18,22 @@ const ok = (pass, msg, detail = "") =>
   await page.goto(BASE, { waitUntil: "networkidle" });
   await page.waitForTimeout(800);
 
+  // --- 2a. Focus visibility (keyboard Tab; first Tab hits the skip link) ---
+  await page.evaluate(() => document.activeElement?.blur());
+  let outline = "never-focused";
+  for (let t = 0; t < 8; t++) {
+    await page.keyboard.press("Tab");
+    await page.waitForTimeout(80);
+    const onLogo = await page.evaluate(() =>
+      document.activeElement?.matches('header a[aria-label^="TestForge"]'),
+    );
+    if (onLogo) {
+      outline = await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle);
+      break;
+    }
+  }
+  ok(outline !== "none" && outline !== "never-focused", "logo link has visible keyboard focus outline", outline);
+
   // --- 1. Typing animation loops ---
   const samples = [];
   for (const at of [500, 2500, 4500, 7000]) {
@@ -53,9 +69,14 @@ const ok = (pass, msg, detail = "") =>
     }
     window.scrollTo(0, 0);
   });
-  await page.waitForTimeout(1200);
+  await page
+    .waitForFunction(() => [...document.images].every((i) => i.complete && i.naturalWidth > 0), undefined, { timeout: 8000 })
+    .catch(() => {});
   const imgs = await page.evaluate(() =>
-    [...document.images].map((i) => ({ src: i.src.split("/").pop(), ok: i.complete && i.naturalWidth > 0 })),
+    [...document.images].map((i) => ({
+      src: (i.currentSrc || i.src).split("/").pop(),
+      ok: i.complete && i.naturalWidth > 0,
+    })),
   );
   ok(imgs.every((i) => i.ok), "all images loaded", imgs.filter((i) => !i.ok).map((i) => i.src).join(",") || `${imgs.length} ok`);
 
@@ -99,20 +120,6 @@ const ok = (pass, msg, detail = "") =>
   const valErrors = await page.evaluate(() => document.querySelectorAll("#start [role=alert]").length);
   ok(valErrors >= 2, "empty form shows inline validation errors", `${valErrors} messages`);
 
-  // --- 8. Focus visibility (keyboard Tab; first Tab hits the skip link) ---
-  let outline = "never-focused";
-  for (let t = 0; t < 8; t++) {
-    await page.keyboard.press("Tab");
-    await page.waitForTimeout(80);
-    const onLogo = await page.evaluate(() =>
-      document.activeElement?.matches('header a[aria-label^="TestForge"]'),
-    );
-    if (onLogo) {
-      outline = await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle);
-      break;
-    }
-  }
-  ok(outline !== "none" && outline !== "never-focused", "logo link has visible keyboard focus outline", outline);
 
   ok(errors.length === 0, "zero console/page errors", errors.slice(0, 3).join(" | ") || "clean");
 
