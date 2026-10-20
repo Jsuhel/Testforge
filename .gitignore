@@ -15,3 +15,11 @@ test-*.png
 wordmark-preview.png
 logo-*-preview.png
 logo-4px-preview.png
+
+# secrets & test artifacts — never commit
+supabase/.temp/
+*.key
+link.text
+fake-fsd.md
+e2e-*.js
+e2e-*.png
