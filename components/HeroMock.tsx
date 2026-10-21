@@ -16,7 +16,7 @@ export default function HeroMock() {
         </span>
       </div>
       <div className="flex min-h-[320px] sm:min-h-[360px]">
-        <MockSidebar count={5} activeIndex={0} />
+        <MockSidebar count={1} activeIndex={0} />
         <div className="flex min-w-0 flex-1 flex-col items-center justify-center gap-5 px-6 py-10">
           <p className="font-display text-lg font-semibold tracking-tight text-[#14181f]">
             Start with the document

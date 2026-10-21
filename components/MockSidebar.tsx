@@ -80,8 +80,8 @@ type MockSidebarProps = {
 };
 
 /**
- * The product sidebar mock. Slots that are not earned yet render as
- * dashed placeholders so the "grows icon by icon" idea is visible.
+ * The product sidebar mock. Renders only the icons earned so far:
+ * a module appears once its step is complete, never before.
  */
 export default function MockSidebar({ count, activeIndex = -1 }: MockSidebarProps) {
   return (
@@ -89,22 +89,17 @@ export default function MockSidebar({ count, activeIndex = -1 }: MockSidebarProp
       className="flex shrink-0 flex-col gap-3 border-r border-[#14181f1f] bg-[#eeebe2] p-2.5"
       aria-hidden="true"
     >
-      {SIDEBAR_ITEMS.map((item, i) => {
-        const earned = i < count;
+      {SIDEBAR_ITEMS.slice(0, count).map((item, i) => {
         const active = i === activeIndex;
         return (
           <div
             key={item.label}
             className={`flex h-8 w-8 items-center justify-center rounded-md ${
-              earned
-                ? active
-                  ? "bg-[#14181f] text-[#f4f1ea]"
-                  : "text-[#14181f99] bg-[#14181f0d]"
-                : "border border-dashed border-[#14181f2e]"
+              active ? "bg-[#14181f] text-[#f4f1ea]" : "bg-[#14181f0d] text-[#14181f99]"
             }`}
-            title={earned ? item.label : "Not unlocked yet"}
+            title={item.label}
           >
-            {earned ? item.icon : null}
+            {item.icon}
           </div>
         );
       })}

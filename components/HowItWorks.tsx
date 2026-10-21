@@ -111,54 +111,68 @@ export default function HowItWorks() {
         </p>
       </div>
 
-      {/* Desktop: sticky app window on the right */}
-      <div className="mx-auto hidden max-w-page grid-cols-2 gap-16 px-8 pb-24 lg:grid">
-        <div>
+      {/* Desktop: description and card are both pinned and swap in lockstep,
+          so the active step's text always sits exactly beside the card */}
+      <div className="relative hidden pb-24 lg:block">
+        <div className="sticky top-24">
+          <div className="mx-auto grid max-w-page grid-cols-2 items-start gap-16 px-8">
+            <div className="flex min-h-[26rem] flex-col justify-center border-l border-line py-8 pl-6 xl:pl-10">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.article
+                  key={active}
+                  initial={reduce ? false : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  aria-label={`Step ${step.num}: ${step.title}`}
+                >
+                  <span className="font-mono text-xs text-accent">
+                    STEP {step.num}
+                  </span>
+                  <h3 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight xl:text-3xl">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 max-w-md leading-relaxed text-muted">{step.lede}</p>
+                </motion.article>
+              </AnimatePresence>
+            </div>
+
+            <div>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={active}
+                  initial={reduce ? false : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={reduce ? undefined : { opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <AppWindow
+                    title={step.tab}
+                    sidebarCount={step.sidebarCount}
+                    activeIndex={step.activeIndex}
+                    footer={`${step.sidebarCount} of 5 modules unlocked · awaiting your approval`}
+                  >
+                    {step.panel}
+                  </AppWindow>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+
+        {/* Invisible scroll drivers: each one promotes its step as it
+            crosses the middle band of the viewport */}
+        <div aria-hidden="true">
           {STEPS.map((s, i) => (
-            <article
+            <div
               key={s.num}
+              data-step-driver={i}
               ref={(el) => {
                 stepRefs.current[i] = el;
               }}
-              className="flex min-h-[62vh] flex-col justify-center border-l border-line py-8 pl-6 xl:pl-10"
-              aria-label={`Step ${s.num}: ${s.title}`}
-            >
-              <span
-                className={`font-mono text-xs transition-colors duration-300 ${
-                  i === active ? "text-accent" : "text-muted"
-                }`}
-              >
-                STEP {s.num}
-              </span>
-              <h3 className="mt-3 font-display text-2xl font-light leading-tight tracking-tight xl:text-3xl">
-                {s.title}
-              </h3>
-              <p className="mt-4 max-w-md leading-relaxed text-muted">{s.lede}</p>
-            </article>
+              className="h-[62vh]"
+            />
           ))}
-        </div>
-
-        <div className="relative">
-          <div className="sticky top-24">
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={active}
-                initial={reduce ? false : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduce ? undefined : { opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <AppWindow
-                  title={step.tab}
-                  sidebarCount={step.sidebarCount}
-                  activeIndex={step.activeIndex}
-                  footer={`${step.sidebarCount} of 5 modules unlocked · awaiting your approval`}
-                >
-                  {step.panel}
-                </AppWindow>
-              </motion.div>
-            </AnimatePresence>
-          </div>
         </div>
       </div>
 

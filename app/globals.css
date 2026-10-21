@@ -179,6 +179,19 @@ body {
   background: var(--line-strong);
 }
 
+/* macOS traffic lights in every app-window titlebar: close, minimize, zoom */
+.mock-titlebar .mock-dot:nth-of-type(1) {
+  background: #ff5f57;
+}
+
+.mock-titlebar .mock-dot:nth-of-type(2) {
+  background: #febc2e;
+}
+
+.mock-titlebar .mock-dot:nth-of-type(3) {
+  background: #28c840;
+}
+
 .chip {
   display: inline-flex;
   align-items: center;
@@ -404,8 +417,4 @@ body {
 
 .mock-fixed .mock-titlebar {
   border-color: #14181f26;
-}
-
-.mock-fixed .mock-dot {
-  background: #14181f40;
 }

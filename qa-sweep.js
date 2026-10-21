@@ -52,14 +52,28 @@ const ok = (pass, msg, detail = "") =>
   const innerW = await page.locator("[data-typing-inner]").evaluate((el) => el.scrollWidth);
   ok(innerW - (boxR?.width ?? 0) < 400, "typing overflow contained (no reflow)", `inner=${innerW}px box=${Math.round(boxR?.width ?? 0)}px`);
 
-  // --- 2. Hero sidebar icons all present ---
+  // --- 2. Hero sidebar: only the document module is unlocked ---
   const heroIcons = await page.evaluate(() => {
     const mock = document.querySelector(".mock");
-    const slots = mock.querySelectorAll(".flex.h-8.w-8, [class*='h-8'][class*='w-8']");
     const svgs = mock.querySelectorAll("div[title] svg");
     return { titled: mock.querySelectorAll("div[title]").length, withIcon: svgs.length };
   });
-  ok(heroIcons.titled === 5 && heroIcons.withIcon === 5, "hero sidebar: all 5 icons render", JSON.stringify(heroIcons));
+  ok(heroIcons.titled === 1 && heroIcons.withIcon === 1, "hero sidebar: only the document icon renders", JSON.stringify(heroIcons));
+
+  // --- 2b. macOS traffic-light dots in the mock titlebar ---
+  const dots = await page.evaluate(() =>
+    [...document.querySelectorAll(".mock-titlebar .mock-dot")]
+      .slice(0, 3)
+      .map((d) => getComputedStyle(d).backgroundColor)
+  );
+  ok(
+    dots.length === 3 &&
+      dots[0] === "rgb(255, 95, 87)" &&
+      dots[1] === "rgb(254, 188, 46)" &&
+      dots[2] === "rgb(40, 200, 64)",
+    "titlebar dots use macOS traffic-light colors",
+    dots.join(", ")
+  );
 
   // --- 3. All images load (scroll through the page so lazy images load) ---
   await page.evaluate(async () => {
@@ -79,6 +93,34 @@ const ok = (pass, msg, detail = "") =>
     })),
   );
   ok(imgs.every((i) => i.ok), "all images loaded", imgs.filter((i) => !i.ok).map((i) => i.src).join(",") || `${imgs.length} ok`);
+
+  // --- 3b. How it works: step text swaps in lockstep with the card ---
+  await page.evaluate(() => {
+    const drivers = [...document.querySelectorAll("[data-step-driver]")];
+    drivers[2].scrollIntoView({ block: "center", behavior: "instant" });
+  });
+  await page.waitForTimeout(700);
+  const par = await page.evaluate(() => {
+    const sec = document.getElementById("how-it-works");
+    const card = sec.querySelector(".mock");
+    const h3 = sec.querySelector("h3");
+    if (!card || !h3) return null;
+    const c = card.getBoundingClientRect();
+    const t = h3.getBoundingClientRect();
+    return {
+      step: h3.textContent,
+      icons: card.querySelectorAll("div[title] svg").length,
+      cardTop: Math.round(c.top),
+      cardH: Math.round(c.height),
+      textTop: Math.round(t.top),
+      textH: Math.round(t.height),
+    };
+  });
+  const parOk =
+    !!par &&
+    par.cardTop < 200 &&
+    Math.abs(par.textTop + par.textH / 2 - (par.cardTop + par.cardH / 2)) < 60;
+  ok(parOk, "how-it-works: active step description sits beside the card", JSON.stringify(par));
 
   // --- 4. FAQ accordion works ---
   const faqButtons = await page.locator("#faq button, #faq summary").all();
