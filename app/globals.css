@@ -2,39 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Neon control room — LaunchDarkly-style reference.
+ * Midnight canvas, carbon surfaces, one chromatic voice: violet/blue.
+ * Elevation is glow, never drop shadow. Product UI is always a white panel.
+ */
 :root {
-  /* Light (paper) theme */
-  --paper: #f4f1ea;
-  --ink: #14181f;
-  --accent: #e4572e;
-  --night: #101418;
-  --line: #14181f26; /* ink at 15% */
-  --line-strong: #14181f40;
-  --muted: #545b66;
-  --surface: #fbfaf6;
-  --surface-2: #eeebe2;
-  --pass: #1f7a4d;
-  --fail: #c23a2b;
-  --shadow: 0 1px 0 #14181f1a, 0 12px 32px -18px #14181f40;
-}
+  --paper: #0e0e0e; /* midnight canvas */
+  --ink: #ffffff; /* primary text */
+  --accent: #7084ff; /* signal violet */
+  --voltage: #405bff; /* voltage blue — the only primary CTA fill */
+  --violet-grad: linear-gradient(179deg, #405bff 1.06%, #7084ff 123.42%);
 
-[data-theme="dark"] {
-  --paper: #101418;
-  --ink: #eef0ee;
-  --accent: #ff7a4d;
-  --night: #0b0e11;
-  --line: #eef0ee1f;
-  --line-strong: #eef0ee3d;
-  --muted: #9aa3ad;
-  --surface: #171c22;
-  --surface-2: #1e242c;
+  --carbon: #191919; /* surface 1: nav pill, cards, footer */
+  --graphite: #414042; /* surface 2: borders, elevated panels */
+  --steel: #58595b; /* input borders, placeholders */
+  --slate: #6d6e71; /* muted labels */
+  --fog: #a7a9ac; /* secondary text */
+  --ash: #d1d3d4; /* tertiary text */
+  --smoke: #2c2c2c; /* separators on dark */
+  --plasma: #3dd6f5; /* sparing radial-glow endpoint */
+
+  --night: #0b0b0b;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --muted: #a7a9ac;
+  --surface: #191919;
+  --surface-2: #141414;
   --pass: #4cbf86;
   --fail: #ef7b6b;
-  --shadow: 0 1px 0 #00000059, 0 12px 32px -18px #000000cc;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  --glow: 0 0 40px rgba(64, 91, 255, 0.25);
 }
 
 html {
   scroll-behavior: smooth;
+  /* anchors clear the floating nav pill */
+  scroll-padding-top: 110px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -52,7 +56,7 @@ body {
 
 ::selection {
   background: var(--accent);
-  color: #fff;
+  color: #0e0e0e;
 }
 
 /* Visible focus everywhere */
@@ -62,18 +66,40 @@ body {
   border-radius: 4px;
 }
 
-/* Thin editorial rules */
+/* Thin separators on dark */
 .rule {
   border-top: 1px solid var(--line);
 }
 
-/* Mono kicker label used above section headings */
+/* Mono kicker label above section headings */
 .kicker {
   font-family: var(--font-jetbrains), Consolas, monospace;
   font-size: 0.6875rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--fog);
+}
+
+/* Gradient text — the brand's signature second line */
+.text-signal {
+  background: var(--violet-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ambient violet wash behind hero blocks and panels */
+.glow-wash {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(64, 91, 255, 0.28),
+    rgba(61, 214, 245, 0.06) 62%,
+    transparent 74%
+  );
+  filter: blur(12px);
+  pointer-events: none;
 }
 
 /* ---------- Marquee ---------- */
@@ -139,8 +165,6 @@ body {
   animation: caret-blink 1s steps(1) infinite;
 }
 
-/* Typewriter content slides left (transform only, zero reflow)
-   to keep the caret visible once the text overflows its fixed box. */
 .typing-scroll {
   transition: transform 140ms ease-out;
   will-change: transform;
@@ -156,19 +180,22 @@ body {
   }
 }
 
-/* ---------- App window chrome (shared by mocks) ---------- */
+/* ---------- Product panels (the real tool is always bright) ---------- */
 .mock {
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
-  border-radius: 10px;
-  box-shadow: var(--shadow);
+  background: #ffffff;
+  color: #14181f;
+  border: 1px solid rgba(20, 24, 31, 0.08);
+  border-radius: 16px;
+  box-shadow:
+    0 0 40px rgba(64, 91, 255, 0.22),
+    0 24px 48px -28px rgba(0, 0, 0, 0.7);
 }
 
 .mock-titlebar {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid #14181f1f;
   padding: 0.5rem 0.75rem;
 }
 
@@ -176,10 +203,10 @@ body {
   width: 8px;
   height: 8px;
   border-radius: 9999px;
-  background: var(--line-strong);
+  background: #14181f40;
 }
 
-/* macOS traffic lights in every app-window titlebar: close, minimize, zoom */
+/* macOS traffic lights in every product titlebar: close, minimize, zoom */
 .mock-titlebar .mock-dot:nth-of-type(1) {
   background: #ff5f57;
 }
@@ -196,13 +223,20 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  padding: 0.125rem 0.5rem;
+  border: 1px solid #14181f2e;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
   font-family: var(--font-jetbrains), Consolas, monospace;
   font-size: 0.6875rem;
   letter-spacing: 0.02em;
   white-space: nowrap;
+  color: #545b66;
+}
+
+/* Dark chips (used outside the light product panels) */
+.chip-dark {
+  border-color: var(--line-strong);
+  color: var(--ash);
 }
 
 @layer components {
@@ -213,11 +247,12 @@ body {
   justify-content: center;
   gap: 0.5rem;
   font-weight: 600;
-  border-radius: 8px;
+  border-radius: 30px;
   transition:
     background-color 160ms ease,
     color 160ms ease,
     border-color 160ms ease,
+    box-shadow 160ms ease,
     transform 160ms ease;
 }
 
@@ -227,66 +262,37 @@ body {
   }
 }
 
-.btn-primary {
-  background: var(--ink);
-  color: var(--paper);
-  padding: 0.75rem 1.25rem;
-}
-
-.btn-primary:hover {
-  background: var(--accent);
-  color: #fff;
-}
-
-[data-theme="dark"] .btn-primary {
-  background: var(--ink);
-  color: var(--night);
-}
-
-[data-theme="dark"] .btn-primary:hover {
-  background: var(--accent);
-  color: #101418;
-}
-
+/* Voltage Blue is the only fill for a main CTA */
+.btn-primary,
 .btn-accent {
-  background: var(--accent);
-  color: #fff;
-  padding: 0.75rem 1.25rem;
+  background: var(--voltage);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 0 28px rgba(64, 91, 255, 0.35);
 }
 
+.btn-primary:hover,
 .btn-accent:hover {
-  background: #c74622;
+  background: #4d68ff;
+  color: #ffffff;
+  box-shadow: 0 0 36px rgba(77, 104, 255, 0.5);
 }
 
-[data-theme="dark"] .btn-accent:hover {
-  background: #ff926e;
-  color: #101418;
-}
-
+/* Secondary actions share the signature violet as an outline */
 .btn-ghost {
-  border: 1px solid var(--line-strong);
-  color: inherit;
-  padding: 0.75rem 1.25rem;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.75rem 1.5rem;
 }
 
 .btn-ghost:hover {
-  border-color: var(--ink);
-}
-
-[data-theme="dark"] .btn-ghost:hover {
-  border-color: var(--ink);
-  background: var(--surface-2);
+  background: rgba(112, 132, 255, 0.12);
+  color: #a9b5ff;
 }
 
 }
 
-/* Force ink-on-paper text inside dark product mocks even in dark mode */
-.mock-fixed {
-  background: #f4f1ea;
-  color: #14181f;
-}
-
-/* ---------- Feedback form (sits on the always-dark night section) ---------- */
+/* ---------- Feedback form (dark console fields) ---------- */
 .field {
   position: relative;
 }
@@ -294,11 +300,11 @@ body {
 .field > input,
 .field > textarea {
   width: 100%;
-  border-radius: 8px;
-  border: 1px solid #eef0ee26;
-  background: #ffffff0d;
+  border-radius: 10px;
+  border: 1px solid var(--graphite);
+  background: #101010;
   padding: 1.45rem 0.9rem 0.55rem;
-  color: #f4f1ea;
+  color: #ffffff;
   font-size: 0.9375rem;
   transition:
     border-color 160ms ease,
@@ -308,17 +314,15 @@ body {
 
 .field > input:hover,
 .field > textarea:hover {
-  border-color: #eef0ee40;
+  border-color: var(--steel);
 }
 
 .field > input:focus,
 .field > textarea:focus {
   outline: none;
   border-color: var(--accent);
-  background: #ffffff12;
-  /* Fallback ring, then a theme-aware one where color-mix is supported */
-  box-shadow: 0 0 0 3px rgba(228, 87, 46, 0.22);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  background: #121212;
+  box-shadow: 0 0 24px rgba(64, 91, 255, 0.22);
 }
 
 .field > input[aria-invalid="true"],
@@ -326,10 +330,10 @@ body {
   border-color: var(--fail);
 }
 
-/* Autofill keeps its dark chrome instead of flashing yellow */
+/* Autofill keeps the dark chrome instead of flashing yellow */
 .field > input:-webkit-autofill {
-  -webkit-text-fill-color: #f4f1ea;
-  -webkit-box-shadow: 0 0 0 1000px #1c232b inset;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0 1000px #1c1c1c inset;
   transition: background-color 9999s ease-in-out 0s;
 }
 
@@ -339,7 +343,7 @@ body {
   left: 0.9rem;
   top: 0.9rem;
   font-size: 0.875rem;
-  color: #eef0ee66;
+  color: var(--steel);
   pointer-events: none;
   transition:
     top 180ms ease,
@@ -365,7 +369,7 @@ body {
 
 .field > input:not(:focus):not(:placeholder-shown) + label,
 .field > textarea:not(:focus):not(:placeholder-shown) + label {
-  color: #eef0ee80;
+  color: var(--slate);
 }
 
 .field > textarea {
@@ -413,8 +417,4 @@ body {
   .btn-shine::after {
     transition: none;
   }
-}
-
-.mock-fixed .mock-titlebar {
-  border-color: #14181f26;
 }

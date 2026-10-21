@@ -100,8 +100,9 @@ export default function ChatSpotlight() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Chat with the document
           </p>
-          <h2 className="max-w-xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
-            Don&apos;t just read the FSD. Interrogate it.
+          <h2 className="max-w-xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.015em] text-white md:text-5xl">
+            Don&apos;t just read the FSD.{" "}
+            <span className="text-signal">Interrogate it.</span>
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
             Once TestForge has analysed the document, the conversation begins.
@@ -110,11 +111,18 @@ export default function ChatSpotlight() {
           </p>
           <ul className="mt-8 grid gap-5">
             {POINTS.map((p) => (
-              <li key={p.title} className="flex gap-3.5">
-                <span
-                  className="mt-1 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-accent"
-                  aria-hidden="true"
-                />
+              <li key={p.title} className="flex gap-3">
+                <span className="mt-0.5 shrink-0 text-violet" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <path
+                      d="M4 12.5 9.5 18 20 6.5"
+                      stroke="currentColor"
+                      strokeWidth="2.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>
                 <div>
                   <p className="font-medium">{p.title}</p>
                   <p className="mt-0.5 text-sm leading-relaxed text-muted">{p.body}</p>

@@ -6,7 +6,7 @@ import TypingPlaceholder from "./TypingPlaceholder";
  */
 export default function HeroMock() {
   return (
-    <div className="mock mock-fixed w-full overflow-hidden" role="img" aria-label="TestForge first screen: a search bar with the product sidebar beside it">
+    <div className="mock w-full overflow-hidden" role="img" aria-label="TestForge first screen: a search bar with the product sidebar beside it">
       <div className="mock-titlebar">
         <span className="mock-dot" />
         <span className="mock-dot" />

@@ -66,8 +66,9 @@ export default function FailureSpotlight() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             Failure reports
           </p>
-          <h2 className="max-w-3xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
-            A failure should reach the right person with the evidence attached.
+          <h2 className="max-w-3xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.015em] text-white md:text-5xl">
+            A failure should reach the right person{" "}
+            <span className="text-signal">with the evidence attached.</span>
           </h2>
           <p className="mt-4 max-w-2xl text-muted">
             Say a customer transfers ₹40,000 from an account holding ₹2,500.
@@ -77,7 +78,7 @@ export default function FailureSpotlight() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mock mock-fixed mt-10 overflow-hidden">
+          <div className="mock mt-10 overflow-hidden">
             <div className="mock-titlebar">
               <span className="mock-dot" />
               <span className="mock-dot" />

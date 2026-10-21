@@ -17,7 +17,7 @@ export default function Home() {
     <>
       <a
         href="#how-it-works"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-pill focus:bg-carbon focus:px-5 focus:py-2.5 focus:text-white focus:shadow-[0_0_24px_rgba(64,91,255,0.4)]"
       >
         Skip to content
       </a>

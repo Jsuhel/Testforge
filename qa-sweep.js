@@ -84,12 +84,12 @@ const ok = (pass, msg, detail = "") =>
     window.scrollTo(0, 0);
   });
   await page
-    .waitForFunction(() => [...document.images].every((i) => i.complete && i.naturalWidth > 0), undefined, { timeout: 8000 })
+    .waitForFunction(() => [...document.images].every((i) => i.naturalWidth > 0), undefined, { timeout: 8000 })
     .catch(() => {});
   const imgs = await page.evaluate(() =>
     [...document.images].map((i) => ({
       src: (i.currentSrc || i.src).split("/").pop(),
-      ok: i.complete && i.naturalWidth > 0,
+      ok: i.naturalWidth > 0,
     })),
   );
   ok(imgs.every((i) => i.ok), "all images loaded", imgs.filter((i) => !i.ok).map((i) => i.src).join(",") || `${imgs.length} ok`);
@@ -146,18 +146,23 @@ const ok = (pass, msg, detail = "") =>
   );
   ok(unnamed.length === 0, "all buttons/links have accessible names", unnamed.slice(0, 3).join(", ") || "clean");
 
-  // --- 6. Theme toggle persists ---
-  await page.click('button[aria-label*="dark theme"]');
-  await page.waitForTimeout(300);
-  await page.reload({ waitUntil: "networkidle" });
-  const themeAfterReload = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
-  ok(themeAfterReload === "dark", "dark theme persists across reload", themeAfterReload);
-  await page.click('button[aria-label*="light theme"]');
+  // --- 6. Nav is a floating pill; hero email carries into the demo form ---
+  const pill = await page.evaluate(() => {
+    const cs = getComputedStyle(document.querySelector("header"));
+    return { pos: cs.position, radius: Math.round(parseFloat(cs.borderRadius)) };
+  });
+  ok(pill.pos === "fixed" && pill.radius >= 40, "nav is a fixed floating pill", JSON.stringify(pill));
+
+  await page.fill("#hero-email", "sweep@testforge.ai");
+  await page.press("#hero-email", "Enter");
+  await page.waitForTimeout(1100);
+  const carried = await page.evaluate(() => document.querySelector("#fb-email")?.value ?? "");
+  ok(carried === "sweep@testforge.ai", "hero email prefills the demo form", carried);
 
   // --- 7. Form validation messages ---
   await page.locator("#start").scrollIntoViewIfNeeded();
   await page.waitForTimeout(800);
-  await page.click('button[type="submit"]');
+  await page.click('#start form button[type="submit"]');
   await page.waitForTimeout(500);
   const valErrors = await page.evaluate(() => document.querySelectorAll("#start [role=alert]").length);
   ok(valErrors >= 2, "empty form shows inline validation errors", `${valErrors} messages`);

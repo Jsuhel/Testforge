@@ -204,15 +204,15 @@ export default function FeedbackForm() {
     <div className="relative max-w-2xl">
       {/* Solid, no-frills contact card */}
       <motion.div
-        className="relative rounded-xl border border-[#eef0ee1f] bg-[#141a21] p-5 sm:p-6"
+        className="relative rounded-pill border border-white/10 bg-carbon p-5 shadow-[0_0_40px_rgba(64,91,255,0.12)] sm:p-8"
         initial={reduce ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{ type: "spring", stiffness: 160, damping: 20 }}
       >
         <div className="relative">
-          <h3 className="font-display text-xl font-medium">Request a demo</h3>
-          <p className="mt-1 text-sm leading-relaxed text-[#9aa3ad]">
+          <h3 className="font-display text-xl font-medium text-white">Request a demo</h3>
+          <p className="mt-1 text-sm leading-relaxed text-fog">
             Bring a real requirements document and watch TestForge.Ai analyse
             it, chat through it, and draft the suite live.
           </p>
@@ -260,14 +260,14 @@ export default function FeedbackForm() {
                   />
                 </motion.svg>
                 <div>
-                  <p className="font-display text-2xl font-medium">
+                  <p className="font-display text-2xl font-medium text-white">
                     Thanks{firstName ? `, ${firstName}` : ""}!
                   </p>
-                  <p className="mt-1 max-w-md text-sm leading-relaxed text-[#9aa3ad]">
+                  <p className="mt-1 max-w-md text-sm leading-relaxed text-fog">
                     Your demo request is in. We&apos;ll confirm a slot within
                     one working day.
                   </p>
-                  <span className="chip mt-3 text-[#9aa3ad]">
+                  <span className="chip chip-dark mt-3">
                     <span
                       className="h-1.5 w-1.5 rounded-full bg-[#4cbf86]"
                       aria-hidden="true"
@@ -364,7 +364,7 @@ export default function FeedbackForm() {
                   </motion.div>
 
                   <motion.div variants={item} className="sm:col-span-2">
-                    <div className="rounded-lg border border-dashed border-[#eef0ee33] px-4 py-3.5 transition-colors hover:border-[#eef0ee55]">
+                    <div className="rounded-2xl border border-dashed border-white/20 px-4 py-3.5 transition-colors hover:border-violet/50">
                       <input
                         id="fb-document"
                         name="document"
@@ -375,7 +375,7 @@ export default function FeedbackForm() {
                       />
                       <label
                         htmlFor="fb-document"
-                        className="flex cursor-pointer items-center gap-3 text-sm text-[#9aa3ad] transition-colors hover:text-paper"
+                        className="flex cursor-pointer items-center gap-3 text-sm text-fog transition-colors hover:text-white"
                       >
                         <svg
                           width="15"
@@ -394,7 +394,7 @@ export default function FeedbackForm() {
                           />
                         </svg>
                         {fileLabel ? (
-                          <span className="min-w-0 truncate text-paper">{fileLabel}</span>
+                          <span className="min-w-0 truncate text-white">{fileLabel}</span>
                         ) : (
                           <span>
                             Attach your requirements document: PDF, DOCX or MD,
@@ -469,7 +469,7 @@ export default function FeedbackForm() {
                       )}
                     </AnimatePresence>
                   </motion.button>
-                  <p className="text-xs text-[#9aa3ad]">
+                  <p className="text-xs text-fog">
                     A calendar invite and nothing else. No spam.
                   </p>
                 </motion.div>

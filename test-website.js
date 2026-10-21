@@ -149,17 +149,28 @@ const VIEWPORTS = [
     ok(foot.ctaH + foot.footH < 1100, `end-of-page compact: CTA ${foot.ctaH}px + footer ${foot.footH}px`);
     report.push(`      end-of-page: dark CTA ${foot.ctaH}px, light footer ${foot.footH}px (bg ${foot.footerBg})`);
 
-    // theme toggle works
-    await page.click('button[aria-label*="dark theme"]');
-    await page.waitForTimeout(300);
-    const theme = await page.evaluate(() => document.documentElement.getAttribute("data-theme"));
-    ok(theme === "dark", `theme toggle switches to dark (got ${theme})`);
-    const navImg = await page.evaluate(() => {
-      const img = document.querySelector("header img");
-      return img ? img.complete && img.naturalWidth > 0 : false;
+    // nav is a floating pill (fixed top, fully rounded) — not a bar
+    const pill = await page.evaluate(() => {
+      const cs = getComputedStyle(document.querySelector("header"));
+      return { pos: cs.position, radius: Math.round(parseFloat(cs.borderRadius)), bg: cs.backgroundColor };
     });
-    ok(navImg, "logo image loaded in dark mode");
-    await page.screenshot({ path: "test-dark-nav.png" });
+    ok(pill.pos === "fixed" && pill.radius >= 40, `nav is a fixed floating pill (${pill.pos}, r=${pill.radius}, bg ${pill.bg})`);
+
+    // hero email carries into the demo form
+    await page.fill("#hero-email", "suite@testforge.ai");
+    await page.press("#hero-email", "Enter");
+    await page.waitForTimeout(1300);
+    const carried = await page.evaluate(() => document.querySelector("#fb-email")?.value ?? "");
+    ok(carried === "suite@testforge.ai", `hero email prefills the demo form (got "${carried}")`);
+
+    // hero headline: second line uses the signal gradient
+    const signal = await page.evaluate(() => {
+      const el = document.querySelector("h1 .text-signal");
+      if (!el) return null;
+      const cs = getComputedStyle(el);
+      return { image: cs.backgroundImage.slice(0, 60), color: cs.color, clipped: cs.webkitTextFillColor };
+    });
+    ok(!!signal && signal.image.includes("gradient"), "hero second line carries the signal-violet gradient", JSON.stringify(signal));
 
     // hover state on the logo
     await page.hover('header a[aria-label^="TestForge"]');

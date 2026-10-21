@@ -40,19 +40,19 @@ export default function Trust() {
       <div className="mx-auto max-w-page px-5 py-16 md:px-8 md:py-24">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <Reveal>
-            <p className="kicker mb-4 flex items-center gap-3 text-[#9aa3ad]">
-              <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
+            <p className="kicker mb-4 flex items-center gap-3 text-fog">
+              <span className="inline-block h-px w-8 bg-violet" aria-hidden="true" />
               Trust
             </p>
-            <h2 className="font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
-              You approve every stage.
+            <h2 className="font-display text-4xl font-medium leading-[1.05] tracking-[-0.015em] text-white md:text-5xl">
+              You approve <span className="text-signal">every stage.</span>
             </h2>
-            <p className="mt-5 max-w-md leading-relaxed text-[#9aa3ad]">
+            <p className="mt-5 max-w-md leading-relaxed text-fog">
               TestForge does the heavy work: reading, drafting, scripting,
               running. The decision to accept any of it stays with a person, at
               every one of the five stages.
             </p>
-            <p className="mt-8 border-l-2 border-accent pl-4 text-sm leading-relaxed text-[#c6ccd3]">
+            <p className="mt-8 border-l-2 border-violet pl-4 text-sm leading-relaxed text-ash">
               Sensitive data is handled with care: documents and credentials
               stay in your workspace, database access is read-only and scoped,
               and you can revoke a connection at any time.
@@ -62,19 +62,17 @@ export default function Trust() {
           <div className="grid gap-4 sm:grid-cols-2">
             {OPTIONS.map((o, i) => (
               <Reveal key={o.title} delay={0.08 * (i + 1)} className="h-full">
-                <div className="flex h-full flex-col rounded-lg border border-[#f4f1ea1f] bg-[#171c22] p-6">
+                <div className="flex h-full flex-col rounded-pill border border-white/10 bg-carbon p-7 transition-colors duration-200 hover:border-violet/40">
                   <div className="flex items-center justify-between">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-md border border-[#f4f1ea2e] text-[#f4f1ea]">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
                       {o.icon}
                     </span>
-                    <span className="chip border-[#f4f1ea2e] text-[#9aa3ad]">
-                      {o.tag}
-                    </span>
+                    <span className="chip chip-dark">{o.tag}</span>
                   </div>
-                  <h3 className="mt-5 font-display text-xl font-medium tracking-tight">
+                  <h3 className="mt-5 font-display text-xl font-medium tracking-tight text-white">
                     {o.title}
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-[#9aa3ad]">
+                  <p className="mt-3 text-sm leading-relaxed text-fog">
                     {o.body}
                   </p>
                 </div>

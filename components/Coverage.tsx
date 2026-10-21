@@ -90,8 +90,9 @@ export default function Coverage() {
             <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
             One pipeline, every test type
           </p>
-          <h2 className="max-w-2xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
-            Not just functional. The whole regression.
+          <h2 className="max-w-2xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.015em] text-white md:text-5xl">
+            Not just functional.{" "}
+            <span className="text-signal">The whole regression.</span>
           </h2>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">
             The same Playwright pipeline that drafts your functional suite
@@ -103,13 +104,13 @@ export default function Coverage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {CARDS.map((c, i) => (
             <Reveal key={c.title} delay={0.06 * i}>
-              <div className="flex h-full flex-col rounded-lg border border-line p-5">
-                <span className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-md border border-line-strong text-ink">
+              <div className="flex h-full flex-col rounded-pill border border-white/10 bg-carbon p-6 transition-colors duration-200 hover:border-violet/40">
+                <span className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
                   {c.icon}
                 </span>
-                <h3 className="font-display font-medium">{c.title}</h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-muted">{c.body}</p>
-                <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-muted/70">
+                <h3 className="font-display font-medium text-white">{c.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-fog">{c.body}</p>
+                <span className="mt-4 font-mono text-[10px] uppercase tracking-[0.1em] text-slate2">
                   Playwright · TypeScript
                 </span>
               </div>

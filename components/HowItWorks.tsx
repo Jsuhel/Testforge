@@ -102,8 +102,9 @@ export default function HowItWorks() {
           <span className="inline-block h-px w-8 bg-accent" aria-hidden="true" />
           How it works
         </p>
-        <h2 className="max-w-2xl font-display text-4xl font-light leading-[1.05] tracking-[-0.015em] md:text-5xl">
-          Five steps. A human signs off on every one.
+        <h2 className="max-w-2xl font-display text-4xl font-medium leading-[1.05] tracking-[-0.015em] text-white md:text-5xl">
+          Five steps.{" "}
+          <span className="text-signal">A human signs off on every one.</span>
         </h2>
         <p className="mt-4 max-w-xl text-muted">
           The sidebar starts empty. Each stage you clear earns the next icon:

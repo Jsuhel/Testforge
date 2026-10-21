@@ -26,7 +26,7 @@ export default function AppWindow({
   footer,
 }: AppWindowProps) {
   return (
-    <div className="mock mock-fixed overflow-hidden" role="img" aria-label={`TestForge app window, ${title}`}>
+    <div className="mock overflow-hidden" role="img" aria-label={`TestForge app window, ${title}`}>
       <div className="mock-titlebar">
         <span className="mock-dot" />
         <span className="mock-dot" />

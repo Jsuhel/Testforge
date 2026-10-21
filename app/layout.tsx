@@ -1,18 +1,24 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 /*
- * Type system per the ElevenLabs style reference: Inter everywhere:
- * whisper-weight 300 for display headlines, 400/500 for body and UI:
- * with JetBrains Mono (the reference's sanctioned Geist Mono substitute)
- * for technical micro-copy.
+ * Neon control room type system: Space Grotesk (the reference's sanctioned
+ * grotesk substitute) carries display headlines at weight 500, Inter handles
+ * body copy, and JetBrains Mono voices the technical labels and code.
  */
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const grotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-grotesk",
   display: "swap",
 });
 
@@ -30,29 +36,16 @@ export const metadata: Metadata = {
     "TestForge reads your requirements, explains them, writes test cases for you to approve, automates them in Playwright, and reports every failure with a screenshot.",
 };
 
-const themeInit = `
-(function () {
-  try {
-    var stored = localStorage.getItem("tf-theme");
-    var theme = stored === "dark" || stored === "light" ? stored : "light";
-    document.documentElement.setAttribute("data-theme", theme);
-  } catch (e) {
-    document.documentElement.setAttribute("data-theme", "light");
-  }
-})();
-`;
+export const viewport: Viewport = {
+  themeColor: "#0e0e0e",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme="light" suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
-      </head>
-      <body
-        className={`${inter.variable} ${jetbrains.variable} font-sans`}
-      >
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} ${grotesk.variable} ${jetbrains.variable} font-sans`}>
         {children}
       </body>
     </html>
