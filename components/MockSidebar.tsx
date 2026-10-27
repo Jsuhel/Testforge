@@ -70,10 +70,30 @@ export const SIDEBAR_ITEMS: { label: string; icon: ReactNode }[] = [
       </svg>
     ),
   },
+  {
+    label: "Assignments",
+    icon: (
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="2" />
+        <path
+          d="M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+        <path
+          d="M17.5 7.5v5M15 10h5"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
 ];
 
 type MockSidebarProps = {
-  /** How many icons the user has earned so far (0–5) */
+  /** How many icons the user has earned so far (0–6) */
   count: number;
   /** Index of the currently highlighted icon */
   activeIndex?: number;

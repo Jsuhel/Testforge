@@ -24,6 +24,14 @@ const FAQS = [
     q: "Is my data safe?",
     a: "Documents and credentials stay in your workspace, database connections are read-only and revocable, and nothing is used for training. We handle sensitive financial data carefully and are happy to walk through the specifics on a call.",
   },
+  {
+    q: "How does it pick regression tests?",
+    a: "From the change, not from a checklist. When a module or requirement changes, TestForge compares it with execution history and dependencies, then proposes the impacted cases: yesterday's greens for the touched module, plus the high-risk workflows that depend on it. Run its selection, a saved suite, or everything.",
+  },
+  {
+    q: "Can it performance-test too?",
+    a: "Yes. You set virtual users, ramp-up, duration and thresholds in plain numbers. TestForge turns that into a k6 workload, runs it against an approved environment, and reports p50, p95 and p99 response times, throughput and error rate. Load limits and guards keep accidental production overload off the table.",
+  },
 ];
 
 export default function Faq() {

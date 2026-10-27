@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, JetBrains_Mono, Sora } from "next/font/google";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 /*
- * Neon control room type system: Space Grotesk (the reference's sanctioned
- * grotesk substitute) carries display headlines at weight 500, Inter handles
- * body copy, and JetBrains Mono voices the technical labels and code.
+ * Type system scraped from the LaunchDarkly homepage: Sora carries display
+ * headlines (their headingFont3), Inter handles body copy as the sanctioned
+ * stand-in for their Söhne, and JetBrains Mono voices the technical labels
+ * in place of their Söhne Mono.
  */
 const inter = Inter({
   subsets: ["latin"],
@@ -15,10 +16,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const grotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-grotesk",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -31,9 +32,9 @@ const jetbrains = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "TestForge: Upload the FSD. Get tests you can trust.",
+  title: "TestForge.Ai: Test at AI speed. You stay in control.",
   description:
-    "TestForge reads your requirements, explains them, writes test cases for you to approve, automates them in Playwright, and reports every failure with a screenshot.",
+    "TestForge.Ai reads your FSD, explains it, drafts the test cases and writes the Playwright. A human approves every stage, and every failure arrives with a screenshot.",
 };
 
 export const viewport: Viewport = {
@@ -45,7 +46,13 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${grotesk.variable} ${jetbrains.variable} font-sans`}>
+      <body className={`${inter.variable} ${jetbrains.variable} font-sans`}>
+        {/* slow blue glows drifting behind the whole page */}
+        <div className="bg-drift" aria-hidden="true">
+          <span className="bg-drift-a" />
+          <span className="bg-drift-b" />
+          <span className="bg-drift-c" />
+        </div>
         {children}
       </body>
     </html>

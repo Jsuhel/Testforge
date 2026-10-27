@@ -21,7 +21,7 @@ const NEXT_STEPS = [
 
 export default function FinalCta() {
   return (
-    <section id="start" className="relative overflow-hidden bg-night text-paper">
+    <section id="start" className="relative overflow-hidden text-paper">
       <div
         aria-hidden="true"
         className="glow-wash -bottom-48 left-1/2 h-[560px] w-[900px] -translate-x-1/2 opacity-60"

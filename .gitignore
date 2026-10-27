@@ -23,3 +23,7 @@ link.text
 fake-fsd.md
 e2e-*.js
 e2e-*.png
+
+# QA sweep run artifacts (regenerated on every sweep)
+qa-desktop.png
+qa-mobile.png

@@ -1,17 +1,23 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import HowItWorks from "@/components/HowItWorks";
-import ChatSpotlight from "@/components/ChatSpotlight";
-import DataSpotlight from "@/components/DataSpotlight";
-import Trust from "@/components/Trust";
-import FailureSpotlight from "@/components/FailureSpotlight";
+import LogoStrip from "@/components/LogoStrip";
+import WorkflowShowcase from "@/components/WorkflowShowcase";
 import Coverage from "@/components/Coverage";
-import Audience from "@/components/Audience";
+import ProductSplit from "@/components/ProductSplit";
+import Capabilities from "@/components/Capabilities";
+import Developers from "@/components/Developers";
+import Resources from "@/components/Resources";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import Footer from "@/components/Footer";
 
+/**
+ * Flow mirrors the LaunchDarkly homepage, with TestForge's story in every
+ * slot: hero with glowing form → widget collage → QA lifecycle strip → the
+ * six-stage workflow deck → coverage map with traceability → author/run
+ * split → the wider workspace (data, load, regression, reports) →
+ * developers → resources → FAQ → demo form → footer.
+ */
 export default function Home() {
   return (
     <>
@@ -24,14 +30,13 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
-        <HowItWorks />
-        <ChatSpotlight />
-        <DataSpotlight />
-        <Trust />
-        <FailureSpotlight />
+        <LogoStrip />
+        <WorkflowShowcase />
         <Coverage />
-        <Audience />
+        <ProductSplit />
+        <Capabilities />
+        <Developers />
+        <Resources />
         <Faq />
         <FinalCta />
       </main>

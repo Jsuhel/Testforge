@@ -23,6 +23,12 @@ const ROWS = [
     type: "Calc",
     status: "review" as const,
   },
+  {
+    id: "TC-018",
+    scenario: "Statement download queued for EOD batch",
+    type: "Data",
+    status: "approved" as const,
+  },
 ];
 
 export default function TestCasesPanel() {

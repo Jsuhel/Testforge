@@ -26,7 +26,7 @@ export default function AppWindow({
   footer,
 }: AppWindowProps) {
   return (
-    <div className="mock overflow-hidden" role="img" aria-label={`TestForge app window, ${title}`}>
+    <div className="mock h-full overflow-hidden" role="img" aria-label={`TestForge app window, ${title}`}>
       <div className="mock-titlebar">
         <span className="mock-dot" />
         <span className="mock-dot" />
@@ -35,7 +35,7 @@ export default function AppWindow({
           testforge.app / {title}
         </span>
       </div>
-      <div className="flex min-h-[300px] sm:min-h-[340px]">
+      <div className="flex min-h-[300px] flex-1 sm:min-h-[340px]">
         <MockSidebar count={sidebarCount} activeIndex={activeIndex} />
         <div className="flex min-w-0 flex-1 flex-col">
           <div className="flex-1 overflow-hidden">{children}</div>

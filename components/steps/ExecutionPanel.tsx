@@ -2,6 +2,8 @@ const RUNS = [
   { id: "TC-014", name: "Pre-close queued after cutoff", status: "pass" as const },
   { id: "TC-021", name: "Transfer above balance is rejected", status: "fail" as const },
   { id: "TC-016", name: "Maker rejects checker return", status: "pass" as const },
+  { id: "TC-018", name: "Statement download queued for EOD", status: "skip" as const },
+  { id: "TC-019", name: "Holiday calendar blocks disbursement", status: "pass" as const },
   { id: "TC-017", name: "Interest to previous business day", status: "running" as const },
 ];
 
@@ -30,7 +32,9 @@ export default function ExecutionPanel() {
                   ? "bg-[#1f7a4d]"
                   : r.status === "fail"
                     ? "bg-[#c23a2b]"
-                    : "border-2 border-[#e4572e] border-t-transparent animate-spin bg-transparent"
+                    : r.status === "skip"
+                      ? "border-2 border-[#545b66] bg-transparent"
+                      : "border-2 border-[#e4572e] border-t-transparent animate-spin bg-transparent"
               }`}
               aria-hidden="true"
             />
@@ -66,6 +70,10 @@ export default function ExecutionPanel() {
       </ul>
 
       <div className="mt-auto pt-3">
+        <div className="mb-1.5 flex items-center justify-between font-mono text-[9px] text-[#545b66]">
+          <span>3 PASSED · 1 FAILED · 1 SKIPPED · 1 LIVE</span>
+          <span>00:03:12</span>
+        </div>
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#14181f14]">
           <div className="h-full w-[78%] rounded-full bg-[#14181f]" />
         </div>

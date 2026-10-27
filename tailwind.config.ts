@@ -34,8 +34,8 @@ const config: Config = {
         plasma: "#3dd6f5",
       },
       fontFamily: {
-        display: ["var(--font-grotesk)", "var(--font-inter)", "Arial", "sans-serif"],
-        sans: ["var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
+        display: ["General Sans", "var(--font-inter)", "Arial", "sans-serif"],
+        sans: ["General Sans", "var(--font-inter)", "Helvetica Neue", "Arial", "sans-serif"],
         mono: ["var(--font-jetbrains)", "Consolas", "monospace"],
       },
       borderRadius: {

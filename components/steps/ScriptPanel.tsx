@@ -59,8 +59,28 @@ export default function ScriptPanel() {
           <span>(</span>
           <span className="text-[#1f7a4d]">&quot;Queued&quot;</span>
           <span>);</span>
+          {"\n  "}
+          <span className="text-[#e4572e]">await</span>
+          <span> page.</span>
+          <span className="text-[#8a5cc2]">screenshot</span>
+          <span>(&#123; path: </span>
+          <span className="text-[#1f7a4d]">&quot;artifacts/TC-014.png&quot;</span>
+          <span> &#125;);</span>
+          {"\n  "}
+          <span className="text-[#e4572e]">await</span>
+          <span> db.</span>
+          <span className="text-[#8a5cc2]">assertRow</span>
+          <span>(&quot;loans&quot;, loanId, &#123; status: </span>
+          <span className="text-[#1f7a4d]">&quot;QUEUED&quot;</span>
+          <span> &#125;);</span>
+          {"\n  "}
+          <span className="text-[#545b66]">test.info(</span>
+          <span className="text-[#1f7a4d]">&quot;branch 0421 · maker session&quot;</span>
+          <span className="text-[#545b66]">);</span>
           {"\n"}
-          <span>&#125;);</span>
+          <span>&#125;, &#123; </span>
+          <span className="text-[#e4572e]">retries</span>
+          <span>: 1 &#125;);</span>
         </code>
       </pre>
 
