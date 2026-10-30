@@ -9,13 +9,14 @@ demo form) on the neon control-room design system: midnight canvas, carbon
 surfaces, voltage-blue CTAs, glow elevation, product UI always shown as white
 panels. Behind everything, a fixed layer of three slow-drifting blue glows
 (`.bg-drift` in `app/globals.css`, mounted in `app/layout.tsx`) breathes
-through every section; it stops under reduced motion. The logo mark is a
-vector orbit monogram: a white forward-leaning T breaking out of a tilted
-voltage-blue orbit ring with a satellite node on its near side, two flat
-colors, transparent background, nothing else
-(`components/ui/Logo.tsx`; raster favicons regenerated from the same
-geometry by `scripts/generate-logo-assets.ps1` into `public/logo*.png`,
-`app/icon.png`, `app/apple-icon.png`, `public/favicon.*`).
+through every section; it stops under reduced motion. The logo is the
+TestForge AI lockup (`components/ui/Logo.tsx`): three indigo test lines
+flow in from the left, merge into one point and resolve as an amber
+checkmark ("many tests, one pass") beside a lowercase `testforgeai`
+wordmark in Inter 500, the icon at 1.8em, the whole lockup linked to `/`.
+The favicon is the same mark on a rounded indigo tile (`app/icon.svg`);
+apple-touch and legacy rasters regenerate from it via
+`scripts/generate-logo-assets.ps1`.
 
 The "Workflow of execution" section (`#how-it-works`) runs the ProjectShowcase
 deck (`components/ui/project-showcase.tsx` +

@@ -1,9 +1,10 @@
 <#
- * Regenerates every TestForge logo/favicon raster from the same geometry as
- * components/ui/Logo.tsx (run: powershell -File scripts/generate-logo-assets.ps1).
- * The mark: forward-leaning T (skewX(-8)) breaking out of a tilted orbit
- * (-24 degrees) with a satellite node. White letter, voltage-blue #405bff
- * orbit, two flat colors, transparent background.
+ * Regenerates every TestForge favicon raster from the same mark as
+ * components/ui/Logo.tsx and app/icon.svg (run:
+ * powershell -File scripts/generate-logo-assets.ps1).
+ * Tile: rounded #4F46E5 square, flow lines #A5B4FC, middle line #FFFFFF,
+ * check #FBBF24, mark centered with padding. All marks share the exact
+ * curves, stroke widths (8/8/8/9) and round caps of the spec.
 #>
 Add-Type -AssemblyName System.Drawing
 Add-Type -AssemblyName System.IO
@@ -11,68 +12,73 @@ Add-Type -AssemblyName System.IO
 $ErrorActionPreference = 'Stop'
 $proj = Split-Path $PSScriptRoot -Parent
 
-# site palette
-$blue = [System.Drawing.Color]::FromArgb(255, 64, 91, 255)      # #405bff voltage
-$dimBlue = [System.Drawing.Color]::FromArgb(128, 64, 91, 255)   # far side of the ring
-$white = [System.Drawing.Color]::White
-$glint = [System.Drawing.Color]::FromArgb(255, 234, 249, 255)
+# favicon tile palette (matches app/icon.svg)
+$tile   = [System.Drawing.Color]::FromArgb(255, 79, 70, 229)    # #4F46E5
+$outer  = [System.Drawing.Color]::FromArgb(255, 165, 180, 252)  # #A5B4FC
+$middle = [System.Drawing.Color]::White                          # #FFFFFF
+$check  = [System.Drawing.Color]::FromArgb(255, 251, 191, 36)   # #FBBF24
 
-# --- geometry constants (64-space, mirrors components/ui/Logo.tsx) ----------
-$CX = 32.0; $CY = 33.0; $RX = 27.0; $RY = 11.5; $TILT = -24.0
-$skewTan = [math]::Tan(-8 * [math]::PI / 180)   # skewX(-8)
-function Tx([double]$x, [double]$y) {
-  $nx = $x + 4.5 + ($skewTan * $y)
-  return (New-Object System.Drawing.PointF([float]$nx, [float]$y))
+function New-Pen([System.Drawing.Color]$color, [float]$width) {
+  $p = New-Object System.Drawing.Pen($color, $width)
+  $p.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
+  $p.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
+  $p.LineJoin = [System.Drawing.Drawing2D.LineJoin]::Round
+  return $p
 }
 
-$crossbar = @((Tx 13 15), (Tx 56 15), (Tx 49.5 26), (Tx 6.5 26))
-$stem = @((Tx 31.5 26), (Tx 41.5 26), (Tx 36.5 52.5), (Tx 30.5 52.5))
-
-$nodeT = 25 * [math]::PI / 180
-$nodeX = $CX + $RX * [math]::Cos($nodeT)
-$nodeY = $CY + $RY * [math]::Sin($nodeT)
-
-function Draw-Mark([int]$size) {
+# The mark inside its native viewBox (56 64 118 96), fitted into the
+# 128-space tile with 14px padding: scale 0.847, offset (14, 23.35).
+function Draw-Tile([int]$size) {
   $bmp = New-Object System.Drawing.Bitmap($size, $size, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
   $g = [System.Drawing.Graphics]::FromImage($bmp)
   $g.SmoothingMode = [System.Drawing.Drawing2D.SmoothingMode]::AntiAlias
   $g.PixelOffsetMode = [System.Drawing.Drawing2D.PixelOffsetMode]::HighQuality
-  $g.ScaleTransform($size / 64.0, $size / 64.0)
+  $g.ScaleTransform($size / 128.0, $size / 128.0)
 
-  $ringPen = New-Object System.Drawing.Pen($blue, 2.6)
-  $ringPen.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $ringPen.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $letterBrush = New-Object System.Drawing.SolidBrush($white)
+  # rounded-square background
+  $rr = New-Object System.Drawing.Drawing2D.GraphicsPath
+  $rr.AddArc(0, 0, 56, 56, 180, 90)
+  $rr.AddArc(72, 0, 56, 56, 270, 90)
+  $rr.AddArc(72, 72, 56, 56, 0, 90)
+  $rr.AddArc(0, 72, 56, 56, 90, 90)
+  $rr.CloseFigure()
+  $g.FillPath((New-Object System.Drawing.SolidBrush($tile)), $rr)
+  $rr.Dispose()
 
-  $ringRect = New-Object System.Drawing.RectangleF([float](-$RX), [float](-$RY), [float](2*$RX), [float](2*$RY))
+  # the mark: three lines merge into one point, then the amber check
+  $g.TranslateTransform(14, 23.35)
+  $g.ScaleTransform(0.847, 0.847)
+  $g.TranslateTransform(-56, -64)
 
-  # --- far side of the orbit, behind the letter (dimmer) ---
-  $st = $g.Save(); $g.TranslateTransform($CX, $CY); $g.RotateTransform($TILT)
-  $dimPen = New-Object System.Drawing.Pen($dimBlue, 2.6)
-  $dimPen.StartCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $dimPen.EndCap = [System.Drawing.Drawing2D.LineCap]::Round
-  $g.DrawArc($dimPen, $ringRect, 180, 180)
-  $g.Restore($st); $dimPen.Dispose()
+  $pOuter = New-Pen $outer 8.0
+  $pMiddle = New-Pen $middle 8.0
+  $pCheck = New-Pen $check 9.0
 
-  # --- the monogram ---
-  $g.FillPolygon($letterBrush, $crossbar)
-  $g.FillPolygon($letterBrush, $stem)
+  $b1 = New-Object System.Drawing.Drawing2D.GraphicsPath
+  $b1.AddBezier(64, 72, 94, 72, 94, 112, 120, 112)
+  $g.DrawPath($pOuter, $b1); $b1.Dispose()
 
-  # --- near side of the orbit, in front + satellite ---
-  $st2 = $g.Save(); $g.TranslateTransform($CX, $CY); $g.RotateTransform($TILT)
-  $g.DrawArc($ringPen, $ringRect, 0, 180)
-  $g.FillEllipse((New-Object System.Drawing.SolidBrush($blue)), [float]($nodeX - 2.7), [float]($nodeY - 2.7), 5.4, 5.4)
-  $g.FillEllipse((New-Object System.Drawing.SolidBrush($glint)), [float]($nodeX - 1.5), [float]($nodeY - 1.5), 1.6, 1.6)
-  $g.Restore($st2)
+  $b2 = New-Object System.Drawing.Drawing2D.GraphicsPath
+  $b2.AddBezier(64, 152, 94, 152, 94, 112, 120, 112)
+  $g.DrawPath($pOuter, $b2); $b2.Dispose()
 
-  $ringPen.Dispose(); $letterBrush.Dispose(); $g.Dispose()
+  $l3 = New-Object System.Drawing.Drawing2D.GraphicsPath
+  $l3.AddLine(64, 112, 120, 112)
+  $g.DrawPath($pMiddle, $l3); $l3.Dispose()
+
+  $ck = New-Object System.Drawing.Drawing2D.GraphicsPath
+  $ck.AddLine(120, 112, 136, 128)
+  $ck.AddLine(136, 128, 166, 90)
+  $g.DrawPath($pCheck, $ck); $ck.Dispose()
+
+  $pOuter.Dispose(); $pMiddle.Dispose(); $pCheck.Dispose(); $g.Dispose()
   return $bmp
 }
 
 # supersampled render for small sizes: draw big, shrink with bicubic
-function Draw-Mark-HQ([int]$size) {
-  if ($size -ge 128) { return Draw-Mark $size }
-  $big = Draw-Mark ($size * 8)
+function Draw-Tile-HQ([int]$size) {
+  if ($size -ge 128) { return Draw-Tile $size }
+  $big = Draw-Tile ($size * 8)
   $bmp = New-Object System.Drawing.Bitmap($size, $size, [System.Drawing.Imaging.PixelFormat]::Format32bppArgb)
   $g = [System.Drawing.Graphics]::FromImage($bmp)
   $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
@@ -88,21 +94,16 @@ function Save-Png($bmp, $path) {
   Write-Host "saved $path  ($($bmp.Width)x$($bmp.Height))"
 }
 
-$out512 = Draw-Mark 512
-Save-Png $out512 "$proj\public\logo.png"
-$out512.Save("$proj\app\icon.png", [System.Drawing.Imaging.ImageFormat]::Png)
-Write-Host "saved $proj\app\icon.png  (512x512)"
-$out512.Dispose()
-
-Save-Png (Draw-Mark 180) "$proj\app\apple-icon.png"
-Save-Png (Draw-Mark-HQ 128) "$proj\public\logo-128.png"
-Save-Png (Draw-Mark-HQ 64) "$proj\public\favicon.png"
+Save-Png (Draw-Tile 180) "$proj\app\apple-icon.png"
+Save-Png (Draw-Tile-HQ 128) "$proj\public\logo-128.png"
+Save-Png (Draw-Tile-HQ 64) "$proj\public\favicon.png"
+Save-Png (Draw-Tile 512) "$proj\public\logo.png"
 
 # --- favicon.ico: 16/32/48 PNG entries in an ICO container -------------------
 $sizes = @(16, 32, 48)
 $blobs = @()
 foreach ($s in $sizes) {
-  $b = Draw-Mark-HQ $s
+  $b = Draw-Tile-HQ $s
   $ms = New-Object System.IO.MemoryStream
   $b.Save($ms, [System.Drawing.Imaging.ImageFormat]::Png)
   $b.Dispose()

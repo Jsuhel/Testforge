@@ -1,4 +1,4 @@
-import LogoMark from "./ui/Logo";
+import Logo from "./ui/Logo";
 
 const TILES = [
   {
@@ -106,13 +106,7 @@ export default function Footer() {
       {/* Link columns */}
       <div className="mx-auto grid max-w-page gap-10 px-5 py-14 md:grid-cols-[1.2fr_repeat(3,minmax(0,1fr))] md:px-8">
         <div>
-          <div className="flex items-center gap-2.5">
-            <LogoMark className="h-9 w-9 shrink-0" />
-            <span className="font-display text-lg font-medium leading-none tracking-[-0.01em]">
-              TestForge
-              <span className="font-semibold text-violet">.Ai</span>
-            </span>
-          </div>
+          <Logo size="md" />
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-fog">
             AI does the heavy work. People stay in control. Built for banking
             QA teams who sign off on quality.

@@ -1,56 +1,51 @@
 /*
- * The TestForge mark: a forward-leaning T breaking out of a tilted orbit,
- * one satellite riding the near side of the ring. White letter, voltage-blue
- * orbit, two flat colors, nothing else, so it stays crisp from favicon to
- * footer and asks nothing of whatever surface carries it.
+ * TestForge AI brand lockup: three test lines flow in from the left, merge
+ * into one point and resolve as an amber checkmark ("many tests, one pass")
+ * beside a lowercase wordmark. The art is fixed: same curves, stroke widths
+ * and round caps in every size; only the palette moves between variants.
+ * The site is a single dark theme, so "dark" is the default everywhere.
  */
 
-const RING_CX = 32;
-const RING_CY = 33;
-const RING_RX = 27;
-const RING_RY = 11.5;
-const RING_TILT = -24;
+const VARIANTS = {
+  dark: { outer: "#6366F1", middle: "#E0E7FF", check: "#FBBF24", text: "#FFFFFF" },
+  light: { outer: "#818CF8", middle: "#4F46E5", check: "#F59E0B", text: "#1E1B4B" },
+} as const;
 
-/* Satellite: a point on the ring, 25 degrees into the near half. */
-const NODE_T = 25 * (Math.PI / 180);
-const NODE_X = RING_CX + RING_RX * Math.cos(NODE_T);
-const NODE_Y = RING_CY + RING_RY * Math.sin(NODE_T);
-
-export default function LogoMark({ className = "" }: { className?: string }) {
+/* Icon geometry: viewBox 118x96, so at 1.8em tall the width is 2.2138em. */
+export default function Logo({
+  size = "md",
+  variant = "dark",
+  className = "",
+}: {
+  size?: "md" | "lg";
+  variant?: keyof typeof VARIANTS;
+  className?: string;
+}) {
+  const c = VARIANTS[variant];
   return (
-    <svg viewBox="0 0 64 64" fill="none" aria-hidden="true" className={className}>
-      {/* far side of the orbit passes behind the letter */}
-      <g transform={`rotate(${RING_TILT} ${RING_CX} ${RING_CY})`}>
-        <path
-          d={`M${RING_CX - RING_RX} ${RING_CY}A${RING_RX} ${RING_RY} 0 0 1 ${
-            RING_CX + RING_RX
-          } ${RING_CY}`}
-          stroke="#405bff"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-          opacity="0.5"
-        />
-      </g>
-
-      {/* the monogram: slanted crossbar over a stem that tapers to its base */}
-      <g transform="translate(4.5 0) skewX(-8)" fill="#ffffff">
-        <path d="M13 15h43l-6.5 11h-43z" />
-        <path d="M31.5 26h10l-5 26.5h-6z" />
-      </g>
-
-      {/* near side of the orbit sweeps in front of the stem */}
-      <g transform={`rotate(${RING_TILT} ${RING_CX} ${RING_CY})`}>
-        <path
-          d={`M${RING_CX - RING_RX} ${RING_CY}A${RING_RX} ${RING_RY} 0 0 0 ${
-            RING_CX + RING_RX
-          } ${RING_CY}`}
-          stroke="#405bff"
-          strokeWidth="2.6"
-          strokeLinecap="round"
-        />
-        <circle cx={NODE_X} cy={NODE_Y} r="2.7" fill="#405bff" />
-        <circle cx={NODE_X - 0.7} cy={NODE_Y - 0.7} r="0.8" fill="#eaf9ff" />
-      </g>
-    </svg>
+    <a
+      href="/"
+      aria-label="TestForge home"
+      className={`group flex shrink-0 items-center gap-[0.7em] rounded-lg font-medium leading-none tracking-[-0.02em] [font-family:var(--font-inter)] ${
+        size === "lg" ? "text-[22px] sm:text-[26px]" : "text-[20px]"
+      } ${className}`}
+    >
+      <svg
+        viewBox="56 64 118 96"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+        className="h-[1.8em] w-[2.2138em] shrink-0 transition-transform duration-200 ease-out group-hover:scale-105"
+      >
+        <path d="M64 72 C94 72 94 112 120 112" stroke={c.outer} strokeWidth="8" />
+        <path d="M64 152 C94 152 94 112 120 112" stroke={c.outer} strokeWidth="8" />
+        <path d="M64 112 L120 112" stroke={c.middle} strokeWidth="8" />
+        <path d="M120 112 L136 128 L166 90" stroke={c.check} strokeWidth="9" />
+      </svg>
+      <span className="whitespace-nowrap" style={{ color: c.text }}>
+        testforge<span style={{ color: "#6366F1" }}>ai</span>
+      </span>
+    </a>
   );
 }

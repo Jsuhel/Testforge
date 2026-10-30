@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import AnnouncementBar from "./AnnouncementBar";
-import LogoMark from "./ui/Logo";
+import Logo from "./ui/Logo";
 
 /* ---------------------------------------------------------------- icons */
 
@@ -249,17 +249,7 @@ export default function Nav() {
 
       <header className="mx-auto max-w-[1140px] rounded-pill2 border border-white/10 bg-carbon py-2 pl-5 pr-2 shadow-[0_4px_20px_rgba(0,0,0,0.45)] md:pl-6">
         <nav aria-label="Main" className="flex items-center justify-between gap-4">
-          <a
-            href="#top"
-            aria-label="TestForge.Ai back to top"
-            className="group flex min-w-0 shrink-0 items-center gap-2 rounded-lg"
-          >
-            <LogoMark className="h-8 w-8 shrink-0 transition-transform duration-200 ease-out group-hover:scale-105 md:h-9 md:w-9" />
-            <span className="whitespace-nowrap font-display text-[17px] font-medium leading-none tracking-[-0.01em] text-white sm:text-lg">
-              TestForge
-              <span className="font-semibold text-violet">.Ai</span>
-            </span>
-          </a>
+          <Logo size="lg" />
 
           {/* Desktop dropdown triggers */}
           <div className="hidden items-center gap-1 lg:flex" onMouseLeave={scheduleClose}>
