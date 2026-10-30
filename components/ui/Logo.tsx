@@ -27,7 +27,7 @@ export default function Logo({
       href="/"
       aria-label="TestForge home"
       className={`group flex shrink-0 items-center gap-[0.7em] rounded-lg font-medium leading-none tracking-[-0.02em] [font-family:var(--font-inter)] ${
-        size === "lg" ? "text-[22px] sm:text-[26px]" : "text-[20px]"
+        size === "lg" ? "text-[18px] sm:text-[20px]" : "text-[20px]"
       } ${className}`}
     >
       <svg
