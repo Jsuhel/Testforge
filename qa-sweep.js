@@ -321,6 +321,14 @@ async function settle(pg) {
   ok(chainNodes === 4, "traceability chain links requirement, case, script and run", `nodes=${chainNodes}`);
   const chainIds = await page.locator("#coverage [data-testid=trace-chain] .font-mono.text-violet").evaluateAll((ps) => ps.map((p) => p.textContent.trim()));
   ok(chainIds[0] === "REQ-042" && chainIds[3] === "RUN #48", "chain runs REQ to RUN in order", chainIds.join(" → "));
+  await page.hover('[data-testid=coverage-tile-4] button');
+  await page.waitForTimeout(300);
+  const detailText = await page.locator("[data-testid=coverage-detail]").textContent();
+  ok(
+    /Boundary & equivalence/.test(detailText) && /Edges and partitions/.test(detailText),
+    "coverage wheel: hovering a node surfaces its detail",
+    detailText.trim().slice(0, 50),
+  );
 
   /* ------------------------------------------- capabilities bento + modules */
   await page.evaluate(() => {
@@ -337,8 +345,20 @@ async function settle(pg) {
   ok(mocksInBento === 0, "bento cards are text-only, no embedded images", `mocks=${mocksInBento}`);
   const moduleChips = await page.locator("#capabilities [data-testid=module-strip] .chip").count();
   ok(moduleChips === 13, "module strip lists the thirteen workspace modules", `chips=${moduleChips}`);
+  await page.click('[data-testid=capability-tab-4]');
+  await page.waitForTimeout(200);
+  const activePanel = await page.locator("#capabilities article:not([hidden]) h3").textContent();
+  ok(/Load/.test(activePanel ?? ""), "workspace spec sheet: the rail switches the module panel", (activePanel ?? "").trim());
   const faqCount = await page.locator("#faq li").count();
   ok(faqCount === 7, "FAQ carries seven answers", `items=${faqCount}`);
+
+  /* ------------------------------------------------ resource index rows */
+  const rows = await page.locator("[data-testid=resource-index] > li").count();
+  ok(rows === 3, "resources render as a three-row editorial index", `rows=${rows}`);
+  const rowRadius = await page
+    .locator("[data-testid=resource-row-1]")
+    .evaluate((a) => getComputedStyle(a).borderRadius);
+  ok(rowRadius === "0px", "resource rows sit on hairlines, not card chrome", rowRadius);
 
   /* ------------------------------------------------ developer snippet card */
   const before = await page.locator("[data-testid=snippet-code]").textContent();

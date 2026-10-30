@@ -28,6 +28,24 @@ const SNIPPETS: Record<string, { code: { text: string; kind: "cmd" | "str" | "fl
   ],
 };
 
+/* The two directions a developer arrives from, as editorial link rows. */
+const LINKS = [
+  {
+    title: "Read the source.",
+    body: "The FSD reader, case generator and script writer are all on GitHub. Open an issue, follow the roadmap.",
+    cta: "Browse the repo",
+    href: "https://github.com/Jsuhel/Testforge",
+    external: true,
+  },
+  {
+    title: "Bring your own FSD.",
+    body: "Attach a real requirements document to the demo request and watch it read, questioned and drafted live.",
+    cta: "Request a demo",
+    href: "#start",
+    external: false,
+  },
+];
+
 function Syntax({ parts }: { parts: { text: string; kind: string }[] }) {
   return (
     <code className="font-mono text-[13.5px] leading-[1.65]">
@@ -52,8 +70,8 @@ function Syntax({ parts }: { parts: { text: string; kind: string }[] }) {
 }
 
 /**
- * LaunchDarkly's developer trio. The third card is the signature:
- * a tabbed, copyable snippet styled like a console.
+ * Built for developers: two link rows beside a real terminal window holding
+ * the tabbed, copyable snippet.
  */
 export default function Developers() {
   const [tab, setTab] = useState<"prompt" | "cli">("prompt");
@@ -87,78 +105,65 @@ export default function Developers() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {/* Source */}
+        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          {/* Link rows */}
           <Reveal className="min-w-0">
-            <a
-              href="https://github.com/Jsuhel/Testforge"
-              target="_blank"
-              rel="noreferrer"
-              className="group flex h-full flex-col rounded-[30px] border border-white/10 bg-carbon p-7 transition-all duration-200 hover:-translate-y-1 hover:border-violet/50 hover:shadow-[0_0_50px_rgba(64,91,255,0.15)]"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <h3 className="mt-5 font-display text-xl font-medium tracking-tight text-white">
-                Read the source.
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-fog">
-                The FSD reader, case generator and script writer are all on
-                GitHub. Open an issue, follow the roadmap.
-              </p>
-              <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-violet transition-colors group-hover:text-white">
-                Browse the repo
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </a>
+            <ul className="border-t border-white/10">
+              {LINKS.map((link, i) => (
+                <li key={link.title}>
+                  <a
+                    href={link.href}
+                    target={link.external ? "_blank" : undefined}
+                    rel={link.external ? "noreferrer" : undefined}
+                    data-testid={`developer-link-${i + 1}`}
+                    className="group grid grid-cols-[auto_1fr_auto] items-start gap-5 border-b border-white/10 py-7 transition-colors hover:bg-white/[0.025] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-violet"
+                  >
+                    <span className="pt-1.5 font-mono text-[11px] tracking-[0.18em] text-violet">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0">
+                      <h3 className="font-display text-2xl font-medium tracking-tight text-white transition-transform duration-200 ease-out group-hover:translate-x-1.5">
+                        {link.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-fog">{link.body}</p>
+                      <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-violet transition-colors group-hover:text-white">
+                        {link.cta}
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                          <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className="pt-1.5 text-violet transition-transform duration-200 ease-out group-hover:translate-x-1.5">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </Reveal>
 
-          {/* Real FSD */}
+          {/* Terminal */}
           <Reveal delay={0.08} className="min-w-0">
-            <a
-              href="#start"
-              className="group flex h-full flex-col rounded-[30px] border border-white/10 bg-carbon p-7 transition-all duration-200 hover:-translate-y-1 hover:border-violet/50 hover:shadow-[0_0_50px_rgba(64,91,255,0.15)]"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-                  <path d="M14 3v5h5" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-                  <path d="M12 17v-5M9.5 14.5 12 12l2.5 2.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <h3 className="mt-5 font-display text-xl font-medium tracking-tight text-white">
-                Bring your own FSD.
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-fog">
-                Attach a real requirements document to the demo request and
-                watch it read, questioned and drafted live.
-              </p>
-              <span className="mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold text-violet transition-colors group-hover:text-white">
-                Request a demo
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </a>
-          </Reveal>
+            <div className="flex h-full flex-col">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+                <h3 className="font-display text-2xl font-medium tracking-tight text-white">
+                  Copy, paste, go.
+                </h3>
+                <p className="max-w-xs text-sm leading-relaxed text-fog">
+                  Drop this into your coding assistant and scaffold the first
+                  suite in seconds.
+                </p>
+              </div>
 
-          {/* Copy, paste, go */}
-          <Reveal delay={0.16} className="min-w-0">
-            <div className="flex h-full flex-col rounded-[30px] border border-white/10 bg-carbon p-7">
-              <h3 className="font-display text-xl font-medium tracking-tight text-white">
-                Copy, paste, go.
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-fog">
-                Drop this into your coding assistant and scaffold the first
-                suite in seconds.
-              </p>
-
-              <div className="mt-5 overflow-hidden rounded-2xl border border-white/10 bg-[#101010]">
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/10 px-3 py-2">
+              <div className="mt-6 flex flex-1 flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0b0b0b] shadow-[0_24px_70px_rgba(0,0,0,0.5)]">
+                <div className="flex items-center gap-4 border-b border-white/10 px-4 py-2.5">
+                  <span aria-hidden="true" className="flex shrink-0 gap-1.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                  </span>
                   <div className="flex min-w-0 gap-1" role="tablist" aria-label="Snippet language">
                     {(["prompt", "cli"] as const).map((t) => (
                       <button
@@ -180,13 +185,13 @@ export default function Developers() {
                     type="button"
                     data-testid="snippet-copy"
                     onClick={copy}
-                    className="rounded-pill px-3 py-1 font-mono text-[11px] text-ash transition-colors hover:bg-white/10 hover:text-white"
+                    className="ml-auto shrink-0 rounded-pill px-3 py-1 font-mono text-[11px] text-ash transition-colors hover:bg-white/10 hover:text-white"
                   >
                     {copied ? "copied ✓" : "copy"}
                   </button>
                 </div>
                 <pre
-                  className="overflow-x-auto p-4"
+                  className="flex-1 overflow-x-auto p-5"
                   data-testid="snippet-code"
                   aria-live="polite"
                 >

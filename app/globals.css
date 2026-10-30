@@ -238,6 +238,88 @@ body {
   }
 }
 
+/* ---------- Coverage wheel: below md the nodes flow as a plain list; from
+   md they pin to a ring around the single spec read. ---------- */
+.cov-wheel {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 2rem;
+}
+
+.cov-wheel-svg,
+.cov-center {
+  display: none;
+}
+
+.cov-detail {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cov-wheel {
+    display: block;
+    aspect-ratio: 1;
+  }
+  .cov-wheel-svg {
+    display: block;
+  }
+  .cov-center {
+    display: block;
+  }
+  .cov-detail {
+    display: block;
+  }
+  .cov-node {
+    position: absolute;
+    left: calc(50% + var(--nx));
+    top: calc(50% + var(--ny));
+    width: max-content;
+    max-width: 112px;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+}
+
+.cov-orbit {
+  transform-origin: 50px 50px;
+  animation: cov-spin 90s linear infinite;
+}
+
+@keyframes cov-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cov-spoke {
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 0.3;
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: cov-draw 0.9s ease-out forwards;
+  transition: stroke 0.2s ease;
+}
+
+.cov-spoke-on {
+  stroke: rgba(61, 214, 245, 0.6);
+}
+
+@keyframes cov-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cov-orbit {
+    animation: none;
+  }
+  .cov-spoke {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
 /* ---------- Marquee ---------- */
 @keyframes marquee-left {
   from {

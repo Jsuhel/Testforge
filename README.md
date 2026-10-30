@@ -44,12 +44,18 @@ as the fallback, JetBrains Mono voices technical labels. Cards across the
 site share one standard: `rounded-[30px]`, carbon surface, `h-11` violet
 icon tile, and an identical hover lift with a 50px blue glow.
 
-The coverage map (`#coverage`) lays out the ten test types the generator
-drafts (smoke through performance) plus the traceability chain
-REQ → TC → script → run. The workspace bento (`#capabilities`) covers the
-remaining modules as text cards: secure database test data, headed execution
-with live step monitoring, change-driven regression, k6 performance testing,
-defect classification with developer assignment, and reports with analytics.
+The coverage map (`#coverage`) is a radial wheel: the ten test types the
+generator drafts (smoke through performance) orbit the single spec read at
+the centre; hovering or focusing a node lights its spoke and surfaces the
+detail panel, and below md the same markup flows as a borderless two-column
+list. The traceability chain REQ → TC → script → run follows as an open
+thread on hairlines. The workspace (`#capabilities`) is a spec sheet, not a
+card grid: a module rail (secure database test data, headed execution with
+live step monitoring, change-driven regression, k6 performance testing,
+defect classification with developer assignment, reports with analytics)
+switches one open panel. Resources are an editorial index (numbered rows on
+hairlines), and the developer section pairs two link rows with a terminal
+window holding the tabbed, copyable snippet.
 
 ## Run locally
 
@@ -65,11 +71,12 @@ npm run build && npm start        # production server in one terminal
 node qa-sweep.js 3000             # full Playwright QA sweep
 ```
 
-The sweep (Playwright, `qa-sweep.js`) covers 67 checks: console cleanliness,
+The sweep (Playwright, `qa-sweep.js`) covers 71 checks: console cleanliness,
 no horizontal overflow from 320px to 1440px, announcement bar, mega-menu nav
 (mouse, click and Escape), mobile menu, hero email carry-through, use-case
-tabs and auto-advance, platform tour playback, coverage-map taxonomy and
-traceability chain, workspace bento and module strip, snippet tabs and
+tabs and auto-advance, platform tour playback, coverage-wheel taxonomy and
+node-detail hover, traceability chain, workspace spec-sheet tabs and module
+strip, resource index rows, snippet tabs and
 clipboard copy, FAQ accordion, demo-form validation and success path
 (network intercepted so no real submission is made), footer, anchors, focus
 visibility, reduced-motion behavior, and full-page screenshots.

@@ -1,4 +1,6 @@
-import type { ReactNode } from "react";
+"use client";
+
+import { useState, type ReactNode } from "react";
 import Reveal from "./Reveal";
 
 /* The thirteen workspace modules, §12 of the plan, as a quiet chip row. */
@@ -131,10 +133,12 @@ const CARDS: Card[] = [
 ];
 
 /**
- * The wider workspace: database test data, headed execution, regression,
- * performance, defect workflow and reporting, as six module cards.
+ * The wider workspace as a spec sheet: a module rail on the left, one open
+ * panel on the right. No card grid, just hairlines and the module in focus.
  */
 export default function Capabilities() {
+  const [tab, setTab] = useState(0);
+
   return (
     <section
       id="capabilities"
@@ -159,47 +163,93 @@ export default function Capabilities() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {CARDS.map((card, i) => (
-            <Reveal key={card.tag} delay={0.06 * i} className="h-full">
-              <article
-                data-testid={`capability-card-${i + 1}`}
-                className="group flex h-full flex-col rounded-[30px] border border-white/10 bg-carbon p-6 transition-all duration-200 hover:-translate-y-1 hover:border-violet/50 hover:shadow-[0_0_50px_rgba(64,91,255,0.15)]"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet transition-colors group-hover:border-violet/60">
-                    {card.icon}
-                  </span>
-                  <span className="text-right font-mono text-[10px] uppercase tracking-[0.14em] text-slate2">
-                    {card.tag}
-                  </span>
-                </div>
-                <h3 className="mt-5 font-display text-xl font-medium tracking-tight text-white">
-                  {card.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-fog">{card.lede}</p>
+        <Reveal className="mt-12">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-16">
+            {/* Module rail */}
+            <div
+              role="tablist"
+              aria-label="Workspace modules"
+              aria-orientation="vertical"
+              data-testid="capability-tabs"
+              className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-t lg:border-white/10 lg:pb-0"
+            >
+              {CARDS.map((card, i) => {
+                const on = tab === i;
+                return (
+                  <button
+                    key={card.tag}
+                    type="button"
+                    role="tab"
+                    aria-selected={on}
+                    aria-controls={`capability-panel-${i}`}
+                    data-testid={`capability-tab-${i + 1}`}
+                    onClick={() => setTab(i)}
+                    className={`relative flex shrink-0 items-baseline gap-3 rounded-pill px-4 py-2.5 text-left text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-4 ${
+                      on ? "bg-white/10 text-white lg:bg-transparent" : "text-fog hover:text-white"
+                    }`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`absolute left-0 top-1/2 hidden h-[calc(100%-14px)] w-0.5 -translate-y-1/2 rounded bg-plasma transition-opacity lg:block ${
+                        on ? "opacity-100" : "opacity-0"
+                      }`}
+                    />
+                    <span className="font-mono text-[10px] tracking-[0.14em] text-slate2">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="whitespace-nowrap font-medium">{card.tag}</span>
+                  </button>
+                );
+              })}
+            </div>
 
-                <ul className="mt-6 grid gap-2.5 border-t border-white/10 pt-5">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2.5 text-[13px] leading-snug text-ash">
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        aria-hidden="true"
-                        className="mt-0.5 shrink-0 text-violet"
-                      >
-                        <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+            {/* Spec panel */}
+            <div className="min-w-0">
+              {CARDS.map((card, i) => (
+                <article
+                  key={card.tag}
+                  id={`capability-panel-${i}`}
+                  role="tabpanel"
+                  aria-labelledby={`capability-tab-${i + 1}`}
+                  data-testid={`capability-card-${i + 1}`}
+                  hidden={tab !== i}
+                  className="min-w-0"
+                >
+                  <div className="flex items-start justify-between gap-6">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-violet/30 bg-violet/10 text-violet">
+                      {card.icon}
+                    </span>
+                    <span aria-hidden="true" className="select-none font-mono text-6xl font-medium leading-none tracking-tight text-white/10">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="mt-6 font-display text-2xl font-medium tracking-tight text-white md:text-3xl">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-fog">{card.lede}</p>
+
+                  <ul className="mt-8 grid gap-x-10 gap-y-3 border-t border-white/10 pt-6 md:grid-cols-2">
+                    {card.items.map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-[13px] leading-snug text-ash">
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          aria-hidden="true"
+                          className="mt-0.5 shrink-0 text-violet"
+                        >
+                          <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </div>
+        </Reveal>
 
         {/* Module strip, §12: the whole workspace at a glance */}
         <Reveal delay={0.1} className="mt-12 border-t border-line pt-8">
