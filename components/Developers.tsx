@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 const SNIPPETS: Record<string, { code: { text: string; kind: "cmd" | "str" | "flag" | "plain" }[] }[]> = {
@@ -128,15 +129,11 @@ export default function Developers() {
                       <p className="mt-2 text-sm leading-relaxed text-fog">{link.body}</p>
                       <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-violet transition-colors group-hover:text-white">
                         {link.cta}
-                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                          <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        <ArrowUpRight size={11} strokeWidth={2.4} aria-hidden="true" />
                       </span>
                     </span>
                     <span aria-hidden="true" className="pt-1.5 text-violet transition-transform duration-200 ease-out group-hover:translate-x-1.5">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                        <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                      <ArrowRight size={18} strokeWidth={2.2} aria-hidden="true" />
                     </span>
                   </a>
                 </li>

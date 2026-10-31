@@ -1,4 +1,4 @@
-import { PenLine, Play } from "lucide-react";
+import { PenLine, Play, Check, ArrowRight } from "lucide-react";
 import Reveal from "./Reveal";
 
 const HALVES = [
@@ -76,16 +76,12 @@ export default function ProductSplit() {
                 <ul className="mt-7 grid gap-3.5 border-t border-white/10 pt-7">
                   {half.items.map((item) => (
                     <li key={item} className="flex items-start gap-3 text-[15px] leading-snug text-ash">
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
+                      <Check
+                        size={16}
+                        strokeWidth={2.4}
                         aria-hidden="true"
                         className="mt-0.5 shrink-0 text-violet"
-                      >
-                        <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
+                      />
                       {item}
                     </li>
                   ))}
@@ -96,9 +92,7 @@ export default function ProductSplit() {
                   className="mt-8 inline-flex w-fit items-center gap-2 rounded-pill border border-violet/60 px-5 py-2.5 text-sm font-semibold text-violet transition-colors hover:bg-violet/10 hover:text-white"
                 >
                   {half.cta.label}
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M4 12h15M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <ArrowRight size={12} strokeWidth={2.2} aria-hidden="true" />
                 </a>
               </article>
             </Reveal>

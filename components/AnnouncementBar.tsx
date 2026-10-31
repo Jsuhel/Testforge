@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { X } from "lucide-react";
 
 /**
  * Dismissible launch bar that sits above the floating nav pill.
@@ -33,9 +34,7 @@ export default function AnnouncementBar() {
         onClick={() => setOpen(false)}
         className="ml-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-ash transition-colors hover:bg-white/10 hover:text-white"
       >
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M5 5l14 14M19 5L5 19" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
-        </svg>
+        <X size={10} strokeWidth={2.4} aria-hidden="true" />
       </button>
     </div>
   );

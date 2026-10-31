@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { Lock, MonitorPlay, History, Gauge, Bug, BarChart3 } from "lucide-react";
+import { Lock, MonitorPlay, History, Gauge, Bug, BarChart3, Check } from "lucide-react";
 import Reveal from "./Reveal";
 
 /* The thirteen workspace modules, §12 of the plan, as a quiet chip row. */
@@ -201,16 +201,12 @@ export default function Capabilities() {
                   <ul className="mt-8 grid gap-x-10 gap-y-3 border-t border-white/10 pt-6 md:grid-cols-2">
                     {card.items.map((item) => (
                       <li key={item} className="flex items-start gap-2.5 text-[13px] leading-snug text-ash">
-                        <svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
+                        <Check
+                          size={14}
+                          strokeWidth={2.4}
                           aria-hidden="true"
                           className="mt-0.5 shrink-0 text-violet"
-                        >
-                          <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                        />
                         {item}
                       </li>
                     ))}

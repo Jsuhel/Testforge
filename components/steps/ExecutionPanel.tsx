@@ -1,3 +1,5 @@
+import { Camera } from "lucide-react";
+
 const RUNS = [
   { id: "TC-014", name: "Pre-close queued after cutoff", status: "pass" as const },
   { id: "TC-021", name: "Transfer above balance is rejected", status: "fail" as const },
@@ -46,11 +48,7 @@ export default function ExecutionPanel() {
             </span>
             {r.status === "fail" && (
               <span className="chip shrink-0 gap-1.5 border-[#c23a2b4d] text-[#c23a2b]">
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="2" />
-                  <path d="M9 7l1.5-3h3L15 7" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-                  <circle cx="12" cy="13.5" r="3" stroke="currentColor" strokeWidth="2" />
-                </svg>
+                <Camera size={10} strokeWidth={2} aria-hidden="true" />
                 screenshot
               </span>
             )}

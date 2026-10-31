@@ -9,6 +9,7 @@ import {
   type Variants,
 } from "framer-motion";
 import { supabase, supabaseEnabled } from "@/lib/supabase";
+import { Paperclip } from "lucide-react";
 
 
 type Status = "idle" | "sending" | "success";
@@ -377,22 +378,12 @@ export default function FeedbackForm() {
                         htmlFor="fb-document"
                         className="flex cursor-pointer items-center gap-3 text-sm text-fog transition-colors hover:text-white"
                       >
-                        <svg
-                          width="15"
-                          height="15"
-                          viewBox="0 0 24 24"
-                          fill="none"
+                        <Paperclip
+                          size={15}
+                          strokeWidth={1.8}
                           aria-hidden="true"
                           className="shrink-0"
-                        >
-                          <path
-                            d="M21.4 11.1 12.3 20a5 5 0 0 1-7.1-7.1l8.5-8.4a3.3 3.3 0 0 1 4.7 4.7l-8.5 8.4a1.7 1.7 0 0 1-2.4-2.4l7.8-7.7"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
+                        />
                         {fileLabel ? (
                           <span className="min-w-0 truncate text-white">{fileLabel}</span>
                         ) : (
