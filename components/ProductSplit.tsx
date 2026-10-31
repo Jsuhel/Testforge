@@ -1,14 +1,10 @@
+import { PenLine, Play } from "lucide-react";
 import Reveal from "./Reveal";
 
 const HALVES = [
   {
     tag: "Author",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M14 3v5h5M9 13h6M9 17h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <PenLine size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Draft the suite.",
     lede: "TestForge does the heavy work: reading the FSD, drafting the cases, writing the scripts. You review, correct and approve.",
     cta: { href: "#how-it-works", label: "See authoring" },
@@ -23,11 +19,7 @@ const HALVES = [
   },
   {
     tag: "Run",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6 4l13 8-13 8V4Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <Play size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Prove the release.",
     lede: "Execution and reporting with the evidence an auditor would ask for, captured the moment it happens.",
     cta: { href: "#platform", label: "See execution" },

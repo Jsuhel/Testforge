@@ -1,23 +1,37 @@
 "use client";
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import {
+  Activity,
+  ArrowRight,
+  BadgeCheck,
+  BarChart3,
+  Boxes,
+  CalendarCheck,
+  Code2,
+  HelpCircle,
+  LayoutGrid,
+  LineChart,
+  ListChecks,
+  MessageSquare,
+  PackageCheck,
+  Play,
+  PlayCircle,
+  RotateCcw,
+  ShieldCheck,
+  Terminal,
+  UserCheck,
+  Workflow,
+  Zap,
+  type LucideIcon,
+} from "lucide-react";
 import AnnouncementBar from "./AnnouncementBar";
 import Logo from "./ui/Logo";
 
 /* ---------------------------------------------------------------- icons */
 
-function tileIcon(d: string): ReactNode {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d={d}
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
+function tileIcon(Icon: LucideIcon): ReactNode {
+  return <Icon size={15} strokeWidth={1.8} aria-hidden="true" />;
 }
 
 /* ------------------------------------------------------------ nav menus */
@@ -37,43 +51,43 @@ const MENUS: NavMenu[] = [
             title: "Platform overview",
             desc: "One window, six stages, from FSD to assigned defect.",
             href: "#platform",
-            icon: tileIcon("M3 12h4l3-8 4 16 3-8h4"),
+            icon: tileIcon(Activity),
           },
           {
             title: "FSD chat",
             desc: "Upload the document, question it until gaps surface.",
             href: "#how-it-works",
-            icon: tileIcon("M21 12a8 8 0 0 1-8 8H4l2-3a8 8 0 1 1 15-5Z"),
+            icon: tileIcon(MessageSquare),
           },
           {
             title: "Test cases",
             desc: "Drafts with gaps flagged, approved case by case.",
             href: "#how-it-works",
-            icon: tileIcon("M4 6l2 2 3-3M4 13l2 2 3-3M12 6h8M12 14h8M5 20h14"),
+            icon: tileIcon(ListChecks),
           },
           {
             title: "Automation",
             desc: "Standard Playwright you can read and edit.",
             href: "#platform",
-            icon: tileIcon("M8 6 3 12l5 6M16 6l5 6-5 6M13 5l-2 14"),
+            icon: tileIcon(Code2),
           },
           {
             title: "Execution",
             desc: "Live runs with a screenshot on every break.",
             href: "#platform",
-            icon: tileIcon("M6 4l13 8-13 8V4Z"),
+            icon: tileIcon(Play),
           },
           {
             title: "Reporting",
             desc: "Results sorted pass, fail, blocked, skipped.",
             href: "#platform",
-            icon: tileIcon("M4 20V10M10 20V4M16 20v-7M21 20H3"),
+            icon: tileIcon(BarChart3),
           },
           {
             title: "Tester assigning",
             desc: "Defects routed to the developer who owns them.",
             href: "#how-it-works",
-            icon: tileIcon("M15 20v-1a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v1M10 7a3 3 0 1 1 0 6 3 3 0 0 1 0-6ZM17.5 7.5v5M15 10h5"),
+            icon: tileIcon(UserCheck),
           },
         ],
       },
@@ -84,13 +98,13 @@ const MENUS: NavMenu[] = [
             title: "Coverage map",
             desc: "Ten test types, one traceable suite.",
             href: "#coverage",
-            icon: tileIcon("M4 5h16v6H4V5ZM4 13h6v6H4v-6ZM14 13h6v6h-6v-6Z"),
+            icon: tileIcon(LayoutGrid),
           },
           {
             title: "Workspace modules",
             desc: "Test data, load, regression, defects, reports.",
             href: "#capabilities",
-            icon: tileIcon("M4 4h7v7H4V4ZM13 4h7v7h-7V4ZM4 13h7v7H4v-7ZM13 13h7v7h-7v-7Z"),
+            icon: tileIcon(Boxes),
           },
         ],
       },
@@ -106,25 +120,25 @@ const MENUS: NavMenu[] = [
             title: "Regression from FSDs",
             desc: "The suite re-runs on every build, not every panic.",
             href: "#capabilities",
-            icon: tileIcon("M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5M18 3v4h-4M6 21v-4h4"),
+            icon: tileIcon(RotateCcw),
           },
           {
             title: "UAT sign-off",
             desc: "Business scenarios a reviewer can actually read.",
             href: "#how-it-works",
-            icon: tileIcon("M9 12l2 2 4-4M12 3l7 4v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V7l7-4Z"),
+            icon: tileIcon(BadgeCheck),
           },
           {
             title: "Release evidence",
             desc: "Screenshots, state and likely cause for every failure.",
             href: "#platform",
-            icon: tileIcon("M4 7h16v13H4V7ZM8 7V4h8v3M9 13h6"),
+            icon: tileIcon(PackageCheck),
           },
           {
             title: "Vendor testing",
             desc: "Hold a supplier's delivery to the spec it signed.",
             href: "#how-it-works",
-            icon: tileIcon("M8 3v4M16 3v4M4 9h16M5 5h14v15H5V5Z"),
+            icon: tileIcon(CalendarCheck),
           },
         ],
       },
@@ -135,25 +149,25 @@ const MENUS: NavMenu[] = [
             title: "QA leads",
             desc: "A review trail, not a black box.",
             href: "#faq",
-            icon: tileIcon("M12 3l7 4v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V7l7-4ZM9 12l2 2 4-4"),
+            icon: tileIcon(ShieldCheck),
           },
           {
             title: "Testers going automation-first",
             desc: "The typing is done; the judgment stays yours.",
             href: "#faq",
-            icon: tileIcon("M13 3 4 14h6l-1 7 9-11h-6l1-7Z"),
+            icon: tileIcon(Zap),
           },
           {
             title: "Product managers",
             desc: "Spec contradictions surface before development.",
             href: "#faq",
-            icon: tileIcon("M4 19V5M4 19h16M8 15v-5M13 15V8M18 15v-3"),
+            icon: tileIcon(LineChart),
           },
           {
             title: "Developers",
             desc: "Failures arrive reproducible, with the state attached.",
             href: "#developers",
-            icon: tileIcon("M8 6 3 12l5 6M16 6l5 6-5 6"),
+            icon: tileIcon(Terminal),
           },
         ],
       },
@@ -169,13 +183,13 @@ const MENUS: NavMenu[] = [
             title: "Straight answers",
             desc: "Formats, data safety, where tests run.",
             href: "#faq",
-            icon: tileIcon("M12 17h.01M9.1 9a3 3 0 1 1 5.8 1c0 2-3 2.2-3 4"),
+            icon: tileIcon(HelpCircle),
           },
           {
             title: "Execution workflow",
             desc: "The six stages, one card each.",
             href: "#how-it-works",
-            icon: tileIcon("M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M10 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM21 21v-2a4 4 0 0 0-3-3.87"),
+            icon: tileIcon(Workflow),
           },
         ],
       },
@@ -186,13 +200,13 @@ const MENUS: NavMenu[] = [
             title: "Request a demo",
             desc: "Bring a real FSD, watch it analysed live.",
             href: "#start",
-            icon: tileIcon("M4 12h15M13 6l6 6-6 6"),
+            icon: tileIcon(ArrowRight),
           },
           {
             title: "How it works",
             desc: "The six stages, one pipeline.",
             href: "#how-it-works",
-            icon: tileIcon("M6 4l13 8-13 8V4Z"),
+            icon: tileIcon(PlayCircle),
           },
         ],
       },

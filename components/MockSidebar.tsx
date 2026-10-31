@@ -1,95 +1,13 @@
 import type { ReactNode } from "react";
+import { LayoutDashboard, ListChecks, Code2, Play, BarChart3, UserPlus } from "lucide-react";
 
 export const SIDEBAR_ITEMS: { label: string; icon: ReactNode }[] = [
-  {
-    label: "Dashboard",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M6 3h9l4 4v14H6V3Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
-        <path d="M9 9h6M9 13h6M9 17h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    label: "Test Cases",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M4 6l2 2 3-3M4 13l2 2 3-3M12 6h8M12 14h8"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path d="M5 20h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    label: "Automation",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M8 6 3 12l5 6M16 6l5 6-5 6M13 5l-2 14"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Execution",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M6 4l13 8-13 8V4Z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Reports",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M4 20V10M10 20V4M16 20v-7M21 20H3"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    label: "Assignments",
-    icon: (
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="9" cy="8" r="3.2" stroke="currentColor" strokeWidth="2" />
-        <path
-          d="M3.5 19c.6-3 2.8-4.5 5.5-4.5s4.9 1.5 5.5 4.5"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-        <path
-          d="M17.5 7.5v5M15 10h5"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
+  { label: "Dashboard", icon: <LayoutDashboard size={14} strokeWidth={2} aria-hidden="true" /> },
+  { label: "Test Cases", icon: <ListChecks size={14} strokeWidth={2} aria-hidden="true" /> },
+  { label: "Automation", icon: <Code2 size={14} strokeWidth={2} aria-hidden="true" /> },
+  { label: "Execution", icon: <Play size={14} strokeWidth={2} aria-hidden="true" /> },
+  { label: "Reports", icon: <BarChart3 size={14} strokeWidth={2} aria-hidden="true" /> },
+  { label: "Assignments", icon: <UserPlus size={14} strokeWidth={2} aria-hidden="true" /> },
 ];
 
 type MockSidebarProps = {

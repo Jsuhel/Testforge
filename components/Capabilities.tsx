@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { Lock, MonitorPlay, History, Gauge, Bug, BarChart3 } from "lucide-react";
 import Reveal from "./Reveal";
 
 /* The thirteen workspace modules, §12 of the plan, as a quiet chip row. */
@@ -31,13 +32,7 @@ type Card = {
 const CARDS: Card[] = [
   {
     tag: "Database & test data",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M8 9.5l1.5 1.5M16 9.5L14.5 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Lock size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Test data, sealed shut.",
     lede: "A read-only window into your system of record, opened by an administrator and never by the AI on its own.",
     items: [
@@ -49,12 +44,7 @@ const CARDS: Card[] = [
   },
   {
     tag: "Execution monitor",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="3" y="5" width="18" height="13" rx="3" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M10 9.5v4l4-2-4-2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <MonitorPlay size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Watch every step.",
     lede: "Run the suite headed and see the browser work: each step, its status and the clock, live.",
     items: [
@@ -65,12 +55,7 @@ const CARDS: Card[] = [
   },
   {
     tag: "Regression",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M18 3v4h-4M6 21v-4h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <History size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Regression that knows why.",
     lede: "Point it at what changed. It reads the change, the history and the dependencies, then proposes the impacted cases.",
     items: [
@@ -82,13 +67,7 @@ const CARDS: Card[] = [
   },
   {
     tag: "Performance",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 15a8 8 0 1 1 16 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M12 15l4.5-4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M2 19h20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Gauge size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Load, measured.",
     lede: "Virtual users, ramp-up, duration and thresholds in plain numbers. k6 does the running, the AI reads the result.",
     items: [
@@ -99,12 +78,7 @@ const CARDS: Card[] = [
   },
   {
     tag: "Defects",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3l9 16H3l9-16Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M12 10v4M12 16.5v.01" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Bug size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Failures, classified.",
     lede: "Every result filed as passed, failed, blocked or skipped. Suspected causes stay suspected until a person confirms.",
     items: [
@@ -116,11 +90,7 @@ const CARDS: Card[] = [
   },
   {
     tag: "Reports & analytics",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 20V10M10 20V4M16 20v-7M21 20H3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <BarChart3 size={20} strokeWidth={1.8} aria-hidden="true" />,
     title: "Reports, ready for sign-off.",
     lede: "The run finishes into a report people can act on, not a log people scroll.",
     items: [

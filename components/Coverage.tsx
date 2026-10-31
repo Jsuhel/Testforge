@@ -1,6 +1,18 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Flame,
+  ClipboardCheck,
+  Diff,
+  Braces,
+  Route,
+  Network,
+  History,
+  Database,
+  ShieldCheck,
+  Gauge,
+} from "lucide-react";
 import Reveal from "./Reveal";
 
 /* The ten coverage types the generator draws from the FSD. */
@@ -8,102 +20,52 @@ const TYPES = [
   {
     name: "Smoke",
     desc: "The build is alive and the critical paths open.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M6 17h11a4 4 0 0 0 .8-7.9A6 6 0 0 0 6.2 9.5 3.5 3.5 0 0 0 6 17Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <Flame size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Functional",
     desc: "Every documented behaviour, exactly as specified.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M8 4h8a2 2 0 0 1 2 2v14l-6-3-6 3V6a2 2 0 0 1 2-2Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M9.5 10l1.8 1.8L14.5 8.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <ClipboardCheck size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Positive & negative",
     desc: "The happy path, and every way to leave it.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M5 12h6M8 9v6M14 12h5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M3 20h18" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Diff size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Boundary & equivalence",
     desc: "Edges and partitions from the spec's own limits.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M8 4H5v16h3M16 4h3v16h-3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M12 8v8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Braces size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "End-to-end",
     desc: "Whole workflows, from login to ledger entry.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 18c6 0 4-12 10-12h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M15 3l3 3-3 3" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <Route size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Integration",
     desc: "Hand-offs between modules and external systems.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M10.5 13.5a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M13.5 10.5a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Network size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Regression",
     desc: "Yesterday's guarantees, re-earned on every build.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 12a8 8 0 0 1 14-5M20 12a8 8 0 0 1-14 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M18 3v4h-4M6 21v-4h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <History size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Database validation",
     desc: "Rows and balances checked after the UI says done.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <ellipse cx="12" cy="6" rx="8" ry="3" stroke="currentColor" strokeWidth="1.8" />
-        <path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="currentColor" strokeWidth="1.8" />
-      </svg>
-    ),
+    icon: <Database size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Security checks",
     desc: "Permissions, roles and input hardening, where they apply.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M12 3l7 4v5c0 4.4-3 8.4-7 9-4-.6-7-4.6-7-9V7l7-4Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      </svg>
-    ),
+    icon: <ShieldCheck size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
   {
     name: "Performance",
     desc: "Response times under load, held to thresholds.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 15a8 8 0 1 1 16 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M12 15l4.5-4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M2 19h20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-      </svg>
-    ),
+    icon: <Gauge size={18} strokeWidth={1.8} aria-hidden="true" />,
   },
 ];
 
