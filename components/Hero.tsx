@@ -86,7 +86,7 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 rounded-full bg-violet" aria-hidden="true" />
             Test authoring for banking QA teams
           </p>
-          <h1 className="mx-auto max-w-4xl font-display text-[2.9rem] font-medium leading-[1.02] tracking-[-0.015em] text-white sm:text-6xl lg:text-[5.25rem]">
+          <h1 className="mx-auto max-w-4xl font-display text-[2.9rem] font-medium leading-[1.04] tracking-[-0.015em] text-white [text-wrap:balance] sm:text-6xl lg:text-[5.25rem]">
             <AnimatedWords text={LINE_1} delayBase={0.12} />
             <br />
             <motion.span

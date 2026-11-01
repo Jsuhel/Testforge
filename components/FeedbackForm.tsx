@@ -387,9 +387,11 @@ export default function FeedbackForm() {
                         {fileLabel ? (
                           <span className="min-w-0 truncate text-white">{fileLabel}</span>
                         ) : (
-                          <span>
-                            Attach your requirements document: PDF, DOCX or MD,
-                            up to {MAX_FILE_MB} MB (optional)
+                          <span className="min-w-0">
+                            <span className="block">Attach your requirements document (optional)</span>
+                            <span className="mt-0.5 block font-mono text-[11px] tracking-wide text-slate2">
+                              PDF, DOCX or MD · up to {MAX_FILE_MB} MB
+                            </span>
                           </span>
                         )}
                       </label>

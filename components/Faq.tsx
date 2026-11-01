@@ -82,7 +82,7 @@ export default function Faq() {
                       role="region"
                       aria-labelledby={`faq-button-${i}`}
                       hidden={!isOpen}
-                      className="pb-5 pr-10"
+                      className="pb-5 pr-2 sm:pr-10"
                     >
                       <p className="max-w-2xl leading-relaxed text-muted">
                         {item.a}

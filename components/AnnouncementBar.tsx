@@ -19,12 +19,13 @@ export default function AnnouncementBar() {
     >
       <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-violet" aria-hidden="true" />
       <p className="min-w-0 truncate">
-        <span className="font-semibold text-white">Early access:</span> Q1 pilot
-        slots are open for banking QA teams.
+        <span className="font-semibold text-white">Early access:</span>
+        <span className="hidden sm:inline"> Q1 pilot slots are open for banking QA teams.</span>
+        <span className="sm:hidden"> Q1 pilot slots are open.</span>
       </p>
       <a
         href="#start"
-        className="shrink-0 whitespace-nowrap font-semibold text-violet underline-offset-4 hover:text-white hover:underline"
+        className="shrink-0 whitespace-nowrap font-semibold text-violet underline-offset-4 hover:text-white hover:underline max-[359px]:hidden"
       >
         Book a demo
       </a>

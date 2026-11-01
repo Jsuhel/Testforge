@@ -182,18 +182,18 @@ export default function Developers() {
                     type="button"
                     data-testid="snippet-copy"
                     onClick={copy}
-                    className="ml-auto shrink-0 rounded-pill px-3 py-1 font-mono text-[11px] text-ash transition-colors hover:bg-white/10 hover:text-white"
+                    className="ml-auto shrink-0 rounded-pill px-3.5 py-1.5 font-mono text-[11px] text-ash transition-colors hover:bg-white/10 hover:text-white"
                   >
                     {copied ? "copied ✓" : "copy"}
                   </button>
                 </div>
                 <pre
-                  className="flex-1 overflow-x-auto p-5"
+                  className="flex-1 overflow-x-auto p-4 sm:p-5"
                   data-testid="snippet-code"
                   aria-live="polite"
                 >
                   {SNIPPETS[tab].map((line, i) => (
-                    <div key={i}>
+                    <div key={i} className="whitespace-pre-wrap break-words">
                       <Syntax parts={line.code} />
                     </div>
                   ))}

@@ -52,9 +52,9 @@ export default function FinalCta() {
                 <span className="font-mono text-xs text-violet" aria-hidden="true">
                   {s.n}
                 </span>
-                <span>
-                  <span className="font-semibold text-white">{s.title}</span>{" "}
-                  <span className="text-fog">· {s.body}</span>
+                <span className="min-w-0">
+                  <span className="block font-semibold text-white">{s.title}</span>
+                  <span className="mt-0.5 block text-fog">{s.body}</span>
                 </span>
               </li>
             ))}

@@ -146,7 +146,7 @@ export default function Coverage() {
 
               <div className="cov-center pointer-events-none absolute left-1/2 top-1/2 z-[1] w-24 -translate-x-1/2 -translate-y-1/2 text-center">
                 <p className="font-mono text-[11px] font-medium tracking-[0.18em] text-violet">FSD</p>
-                <p className="mt-1 text-[10px] leading-tight text-slate2">one read, ten kinds of cover</p>
+                <p className="mt-1 text-[10px] leading-tight text-fog">one read, ten kinds of cover</p>
               </div>
 
               {NODES.map((n) => (

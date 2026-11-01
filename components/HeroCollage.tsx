@@ -39,17 +39,17 @@ export default function HeroCollage() {
             <div className="h-full w-[96.4%] rounded-full bg-gradient-to-r from-[#405bff] to-[#7084ff]" />
           </div>
           <ul className="mt-4 space-y-2 font-mono text-[11px] text-[#545b66]">
-            <li className="flex items-center justify-between border-b border-[#14181f14] pb-2">
-              <span>TC-112 · interest rounding to 2 decimals</span>
-              <span className="text-[#1f7a4d]">pass 1.2s</span>
+            <li className="flex items-center justify-between gap-3 border-b border-[#14181f14] pb-2">
+              <span className="min-w-0 truncate">TC-112 · interest rounding to 2 decimals</span>
+              <span className="shrink-0 text-[#1f7a4d]">pass 1.2s</span>
             </li>
-            <li className="flex items-center justify-between border-b border-[#14181f14] pb-2">
-              <span>TC-113 · maker rejects checker return</span>
-              <span className="text-[#1f7a4d]">pass 0.8s</span>
+            <li className="flex items-center justify-between gap-3 border-b border-[#14181f14] pb-2">
+              <span className="min-w-0 truncate">TC-113 · maker rejects checker return</span>
+              <span className="shrink-0 text-[#1f7a4d]">pass 0.8s</span>
             </li>
-            <li className="flex items-center justify-between">
-              <span>TC-114 · duplicate payment stopped</span>
-              <span className="flex items-center gap-1.5 text-[#d64541]">
+            <li className="flex items-center justify-between gap-3">
+              <span className="min-w-0 truncate">TC-114 · duplicate payment stopped</span>
+              <span className="flex shrink-0 items-center gap-1.5 text-[#d64541]">
                 failed
                 <span className="chip border-[#d6454140] text-[#d64541]">screenshot</span>
               </span>
@@ -83,22 +83,22 @@ export default function HeroCollage() {
             <span className="chip border-[#14181f2e] text-[#545b66]">1 of 41</span>
           </div>
           <ul className="mt-3 space-y-2 text-[12px] text-[#14181f]">
-            <li className="flex items-center justify-between border-b border-[#14181f14] pb-2">
-              <span className="min-w-0 truncate pr-2">
+            <li className="flex items-center justify-between gap-3 border-b border-[#14181f14] pb-2">
+              <span className="min-w-0 truncate">
                 <span className="font-mono text-[10px] text-[#545b66]">TC-016</span>{" "}
                 Maker can reject a checker return
               </span>
               <span className="shrink-0 font-mono text-[10px] text-[#1f7a4d]">approved</span>
             </li>
-            <li className="flex items-center justify-between border-b border-[#14181f14] pb-2">
-              <span className="min-w-0 truncate pr-2">
+            <li className="flex items-center justify-between gap-3 border-b border-[#14181f14] pb-2">
+              <span className="min-w-0 truncate">
                 <span className="font-mono text-[10px] text-[#545b66]">TC-014</span>{" "}
                 Pre-close after cutoff queues
               </span>
               <span className="shrink-0 font-mono text-[10px] text-[#545b66]">review</span>
             </li>
-            <li className="flex items-center justify-between">
-              <span className="min-w-0 truncate pr-2">
+            <li className="flex items-center justify-between gap-3">
+              <span className="min-w-0 truncate">
                 <span className="font-mono text-[10px] text-[#545b66]">TC-015</span>{" "}
                 Penalty waiver applies to queued
               </span>

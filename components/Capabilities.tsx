@@ -135,14 +135,17 @@ export default function Capabilities() {
 
         <Reveal className="mt-12">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,300px)_1fr] lg:gap-16">
-            {/* Module rail */}
-            <div
-              role="tablist"
-              aria-label="Workspace modules"
-              aria-orientation="vertical"
-              data-testid="capability-tabs"
-              className="flex gap-2 overflow-x-auto pb-2 lg:flex-col lg:gap-0 lg:overflow-visible lg:border-t lg:border-white/10 lg:pb-0"
-            >
+            {/* Module rail: a scrolling chip row below lg, a vertical rail above.
+                min-w-0 keeps the grid track at container width so the rail
+                actually scrolls instead of silently clipping its pills. */}
+            <div className="relative min-w-0 lg:static">
+              <div
+                role="tablist"
+                aria-label="Workspace modules"
+                aria-orientation="vertical"
+                data-testid="capability-tabs"
+                className="flex snap-x snap-proximity gap-2 overflow-x-auto pb-2 [scrollbar-width:none] lg:flex-col lg:gap-0 lg:overflow-visible lg:border-t lg:border-white/10 lg:pb-0 lg:snap-none"
+              >
               {CARDS.map((card, i) => {
                 const on = tab === i;
                 return (
@@ -154,7 +157,7 @@ export default function Capabilities() {
                     aria-controls={`capability-panel-${i}`}
                     data-testid={`capability-tab-${i + 1}`}
                     onClick={() => setTab(i)}
-                    className={`relative flex shrink-0 items-baseline gap-3 rounded-pill px-4 py-2.5 text-left text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-4 ${
+                    className={`relative flex shrink-0 snap-start items-baseline gap-3 rounded-pill px-4 py-2.5 text-left text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet lg:snap-align-none lg:rounded-none lg:border-b lg:border-white/10 lg:px-0 lg:py-4 ${
                       on ? "bg-white/10 text-white lg:bg-transparent" : "text-fog hover:text-white"
                     }`}
                   >
@@ -171,6 +174,13 @@ export default function Capabilities() {
                   </button>
                 );
               })}
+              </div>
+              {/* Edge fade tells phone and tablet visitors the rail slides */}
+              <span
+                aria-hidden="true"
+                data-testid="capability-rail-fade"
+                className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-paper to-transparent lg:hidden"
+              />
             </div>
 
             {/* Spec panel */}
